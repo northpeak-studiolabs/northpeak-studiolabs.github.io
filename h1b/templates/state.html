@@ -1,14 +1,16 @@
 {% extends "base.html" %}
 {% from "_macros.html" import tiles, stat_table, levels_bars %}
 {% block title %}H-1B Salaries in {{ name }} {{ year }}: {{ n|num }} Filings, Median {{ s.median|money }}{% endblock %}
-{% block description %}H-1B salaries in {{ name }}: {{ n|num }} certified LCA filings, median {{ s.median|money }} ({{ win_start|date }} – {{ win_end|date }}). Top H-1B employers and job titles in {{ name }}.{% endblock %}
+{% block description %}H-1B salaries in {{ name }}: {{ n|num }} certified LCA filings, median {{ s.median|money }} ({{ win_start|date }} – {{ win_end|date }}). Top H-1B employers, job titles and cities in {{ name }}.{% endblock %}
 {% block content %}
 <h1>H-1B Salaries in {{ name }}</h1>
-<p class="lead">{{ n|num }} certified full-time H-1B filings for worksites in {{ name.split(",")[0] }}, <a href="{{ state_url }}">{{ state }}</a>, decided {{ win_start|date }} – {{ win_end|date }}.</p>
+<p class="lead">{{ n|num }} certified full-time H-1B filings for worksites in {{ name }}, decided {{ win_start|date }} – {{ win_end|date }}.</p>
 {{ tiles(s, n) }}
-{% with slot="city-top" %}{% include "_ads.html" %}{% endwith %}
+{% with slot="state-top" %}{% include "_ads.html" %}{% endwith %}
 <h2>Top H-1B employers in {{ name }}</h2>
 {{ stat_table(emps, "Employer") }}
+<h2>H-1B salaries by city in {{ name }}</h2>
+{{ stat_table(cities, "City") }}
 <h2>Top H-1B job titles in {{ name }}</h2>
 {{ stat_table(titles, "Job title") }}
 <div class="grid2">

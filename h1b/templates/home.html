@@ -28,6 +28,8 @@
 {% endfor %}</tbody></table></div>
 <p><a href="{{ u('cities/') }}">All cities →</a></p></div>
 </div>
+<h2>H-1B salaries by state</h2>
+<nav class="pills" aria-label="States">{% for st in top_states %}<a href="{{ st.url }}">{{ st.name }}</a>{% endfor %} <a href="{{ u('cities/') }}">All states →</a></nav>
 <p class="note">These are wage rates employers attested to on certified LCAs, the step before an H-1B petition. They are not actual pay, and a certified LCA does not mean a visa was approved. <a href="{{ u('about/') }}">Methodology</a>.</p>
 {% endblock %}
 {% block scripts %}<script src="{{ u('assets/search.js') }}" defer></script>{% endblock %}

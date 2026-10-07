@@ -329,9 +329,27 @@ def main():
         s = stats(r.wage for r in rs)
         name = city_name[k]
         render("city.html", f"city/{city_slug[k]}/", [("Cities", u("cities/")), (name, city_url(k))],
-               name=name, state=US_STATES.get(k[1], k[1]), n=len(rs), s=s, emps=emp_rows(rs, 20),
+               name=name, state=US_STATES.get(k[1], k[1]), state_url=u(f"state/{slugify(US_STATES[k[1]])}/"),
+               n=len(rs), s=s, emps=emp_rows(rs, 20),
                top_paying=emp_rows(rs, 15, "median", 5), titles=title_rows(rs, 20), levels=level_mix(rs))
     print(f"{len(city_keys):,} city pages in {time.time()-t1:.1f}s")
+
+    # ---------------------------------------------------------------- state pages
+    t1 = time.time()
+    by_state = defaultdict(list)
+    for r in rows:
+        if r.ckey:
+            by_state[r.ckey[1]].append(r)
+    state_codes = sorted((st for st, v in by_state.items() if len(v) >= mc), key=lambda st: US_STATES[st])
+    state_slug = {st: slugify(US_STATES[st]) for st in state_codes}
+    for st in state_codes:
+        rs = by_state[st]
+        s = stats(r.wage for r in rs)
+        name = US_STATES[st]
+        render("state.html", f"state/{state_slug[st]}/", [("Cities", u("cities/")), (name, u(f"state/{state_slug[st]}/"))],
+               name=name, n=len(rs), s=s, emps=emp_rows(rs, 25), top_paying=emp_rows(rs, 15, "median", 5),
+               titles=title_rows(rs, 25), cities=city_rows(rs, 30), levels=level_mix(rs))
+    print(f"{len(state_codes):,} state pages in {time.time()-t1:.1f}s")
 
     # ---------------------------------------------------------------- browse indexes
     def letter_of(name):
@@ -365,13 +383,16 @@ def main():
     states = defaultdict(list)
     for k in city_keys:
         states[k[1]].append({"name": city_name[k], "url": city_url(k), "n": len(by_city[k])})
-    state_list = [{"code": st, "name": US_STATES.get(st, st), "cities": sorted(v, key=lambda x: -x["n"])}
+    state_list = [{"code": st, "name": US_STATES.get(st, st), "cities": sorted(v, key=lambda x: -x["n"]),
+                   "url": u(f"state/{state_slug[st]}/") if st in state_slug else None}
                   for st, v in sorted(states.items(), key=lambda kv: US_STATES.get(kv[0], kv[0]))]
     render("cities.html", "cities/", [("Cities", u("cities/"))], states=state_list, threshold=mc)
 
     # ---------------------------------------------------------------- home, about, privacy
     overall = stats(r.wage for r in rows)
     render("home.html", "", [], n=len(rows), s=overall, n_emp=len(by_emp), top_emps=top_emps_all[:30],
+           top_states=sorted(({"name": US_STATES[st], "url": u(f"state/{state_slug[st]}/"), "n": len(by_state[st])}
+                              for st in state_codes), key=lambda x: -x["n"])[:15],
            top_titles=top_titles_all[:20],
            top_cities=[{"name": city_name[k], "url": city_url(k), "n": len(by_city[k])} for k in city_keys[:20]])
     render("about.html", "about/", [("About & methodology", u("about/"))], n=len(rows), bad_wage=bad_wage,
