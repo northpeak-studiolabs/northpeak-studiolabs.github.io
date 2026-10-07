@@ -12,7 +12,7 @@ CatalogLens for Shopify is a browser extension that tells you whether the online
 
 **What is stored.** Your Pro license status and, if you use the Pro watchlist, the stores you save (address, name, product count and dates of your checks) are kept in your browser's extension storage. Product data is held in the inspected tab's memory only until you close or reload it.
 
-**License checks.** If you buy Pro, the license key you enter is sent to our payment provider (Gumroad or Lemon Squeezy) to confirm it is valid, and re-checked about once a week. In Firefox you are asked for permission before the key is sent. Nothing else is sent with it. The payment provider's privacy policy covers your purchase details.
+**License checks.** If you buy Pro, the license key you enter is sent to our payment provider (Gumroad, Polar or Lemon Squeezy) to confirm it is valid, and re-checked about once a week. In Firefox you are asked for permission before the key is sent. Nothing else is sent with it. The payment provider's privacy policy covers your purchase details.
 
 **No sale or sharing.** We do not sell, rent or share any data. We do not use data for advertising, credit decisions or any purpose other than running the extension.
 

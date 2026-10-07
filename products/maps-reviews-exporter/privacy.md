@@ -8,7 +8,7 @@ Maps Reviews Exporter is a browser extension that exports the Google Maps review
 
 **Where your data goes.** The reviews are kept only in your own browser (extension storage) until you export, copy or clear them. Exports are created on your computer. The extension has no servers of its own and no analytics, and it never sends the reviews anywhere.
 
-**License checks.** If you buy Pro, the license key you enter is sent to our payment provider (Gumroad or Lemon Squeezy) to confirm it is valid, and re-checked about once a week. In Firefox, you are asked for permission before the key is sent. Nothing else is sent with it. The payment provider's privacy policy covers your purchase details.
+**License checks.** If you buy Pro, the license key you enter is sent to our payment provider (Gumroad, Polar or Lemon Squeezy) to confirm it is valid, and re-checked about once a week. In Firefox, you are asked for permission before the key is sent. Nothing else is sent with it. The payment provider's privacy policy covers your purchase details.
 
 **No sale or sharing.** We do not sell, rent or share any data. We do not use data for advertising, credit decisions or any purpose other than running the extension.
 

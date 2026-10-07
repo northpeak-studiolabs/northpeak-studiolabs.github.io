@@ -2,7 +2,8 @@
 
 Each folder in products/ holds product.json, privacy.md and images. To start selling, set
 "checkout_url" in product.json to the checkout link and "license" to
-{"provider": "gumroad", "product_id": "...", "max_uses": 3}; the extensions' Buy buttons
+{"provider": "gumroad", "product_id": "...", "max_uses": 3} or
+{"provider": "polar", "organization_id": "...", "benefit_id": "..."}; the extensions' Buy buttons
 open <slug>/#pricing, so the link can change here without a new browser-store review.
 """
 from __future__ import annotations
