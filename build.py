@@ -1,7 +1,8 @@
 """Build the Northpeak Studio Labs site: product pages and privacy policies -> dist/.
 
 Each folder in products/ holds product.json, privacy.md and images. To start selling, set
-"checkout_url" in product.json to the Lemon Squeezy checkout link; the extensions' Buy buttons
+"checkout_url" in product.json to the checkout link and "license" to
+{"provider": "gumroad", "product_id": "...", "max_uses": 3}; the extensions' Buy buttons
 open <slug>/#pricing, so the link can change here without a new browser-store review.
 """
 from __future__ import annotations
@@ -85,6 +86,8 @@ def product(slug: str, src: Path) -> dict:
 <h2>Who uses it</h2><p>{html.escape(p['who'])}</p>
 <h2>Privacy</h2><p>Everything runs in your browser. No account, no tracking, and your data never passes through our servers. <a href="privacy/">Read the privacy policy</a>.</p>
 <p><small>{html.escape(p['note'])}</small></p>"""
+    if p.get('license'):  # read by the extension: which payment provider and product a key must belong to
+        (dst / 'license.json').write_text(json.dumps(p['license']))
     (dst / 'index.html').write_text(page(f"{p['name']}: {p['tagline']}", p['tagline'], body, 1), encoding='utf-8')
     priv = md_to_html((src / 'privacy.md').read_text())
     (dst / 'privacy' / 'index.html').write_text(page(f"{p['name']} privacy policy", f"Privacy policy for {p['name']}.", priv, 2), encoding='utf-8')
