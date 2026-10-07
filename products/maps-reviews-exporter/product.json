@@ -1,0 +1,14 @@
+{
+  "name": "Maps Reviews Exporter",
+  "tagline": "Export the Google Maps reviews of any business to CSV or JSON in one click.",
+  "price": "$24.99",
+  "pro_name": "Maps Reviews Exporter Pro",
+  "checkout_url": null,
+  "store_links": {},
+  "how": ["Open any business in Google Maps.", "Click the extension and press Collect reviews. It scrolls the list and expands long reviews for you.", "Export CSV or JSON, or copy straight into a spreadsheet."],
+  "fields": "Reviewer name and profile link, star rating, date (plus an estimated calendar date), full text, owner response, photo and like counts, and sub-ratings such as Food and Service. Every row also carries the place name, address and overall rating.",
+  "free": ["Up to 50 reviews per export", "CSV export and copy to clipboard"],
+  "pro": ["Unlimited reviews per export", "JSON export", "Filter by star rating and keyword", "Summary: star counts, rating by month, owner response rate, most-mentioned words"],
+  "who": "Business owners tracking their reputation, agencies preparing audits, marketers studying competitors and researchers analysing customer feedback.",
+  "note": "Maps Reviews Exporter is an independent tool and is not affiliated with or endorsed by Google."
+}
