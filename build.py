@@ -15,6 +15,8 @@ from pathlib import Path
 HERE = Path(__file__).parent
 OUT = HERE / 'dist'
 SITE = 'Northpeak Studio Labs'
+BASE = 'https://northpeak-studiolabs.github.io'
+SITEMAPS = ['h1b/sitemap.xml', 'recallflag/sitemap.xml']
 
 CSS = """
 :root{--bg:#fff;--fg:#1d2330;--muted:#5b6475;--line:#e3e6ec;--accent:#2457d6;--accent-ink:#fff;--card:#f6f7fa}
@@ -99,8 +101,14 @@ def main() -> None:
             cards.append(f'<a class="card" href="{src.name}/"><img src="{src.name}/icon-128.png" alt=""><div><strong>{html.escape(p["name"])}</strong><br>'
                          f'<span>{html.escape(p["tagline"])}</span></div></a>')
     body = f'<h1>{SITE}</h1><p class="lead">Small, private browser tools that export the data you need. Pay once, no subscriptions.</p><div class="products">{"".join(cards)}</div>'
+    body += ('<h2>Free data sites</h2><div class="products">'
+             '<a class="card" href="h1b/"><div><strong>H-1B Salary Lookup</strong><br><span>Offered salaries from 485,000+ certified H-1B filings, by employer, job title and city.</span></div></a>'
+             '<a class="card" href="recallflag/"><div><strong>RecallFlag</strong><br><span>Search U.S. vehicle, food, drug and product recalls, updated daily.</span></div></a></div>')
     (OUT / 'index.html').write_text(page(SITE, 'Small, private browser tools. Pay once, no subscriptions.', body, 0), encoding='utf-8')
     (OUT / '.nojekyll').write_text('')
+    for f in (HERE / 'static_root').iterdir():  # IndexNow key file
+        shutil.copy(f, OUT / f.name)
+    (OUT / 'robots.txt').write_text('User-agent: *\nAllow: /\nDisallow: /recallflag/search/\n\n' + ''.join(f'Sitemap: {BASE}/{m}\n' for m in SITEMAPS))
     print('Built', len(cards), 'product page(s)')
 
 

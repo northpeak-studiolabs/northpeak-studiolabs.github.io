@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}H-1B Salaries by {{ "Employer" if kind == "employers" else "Job Title" }} {{ year }}{% endblock %}
+{% block description %}Browse H-1B salaries for {{ total|num }} {{ label|lower }} with at least {{ threshold }} certified LCA filings.{% endblock %}
+{% block content %}
+<h1>H-1B Salaries by {{ "Employer" if kind == "employers" else "Job Title" }}</h1>
+<p class="lead">{{ total|num }} {{ label|lower }} with at least {{ threshold }} certified full-time H-1B filings. Browse A–Z or see the 100 largest below.</p>
+<nav class="pills" aria-label="Letters">{% for x in nav %}<a href="{{ x.url }}">{{ x.L }}</a>{% endfor %}</nav>
+<div class="tbl"><table>
+<thead><tr><th>{{ "Employer" if kind == "employers" else "Job title" }}</th><th class="n">Filings</th><th class="n">Median</th></tr></thead>
+<tbody>{% for e in items %}<tr><td><a href="{{ e.url }}">{{ e.name }}</a></td><td class="n">{{ e.n|num }}</td><td class="n">{{ e.median|money }}</td></tr>
+{% endfor %}</tbody></table></div>
+{% endblock %}

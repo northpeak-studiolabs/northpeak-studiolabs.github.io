@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}H-1B Salaries by City {{ year }}{% endblock %}
+{% block description %}H-1B salary data for U.S. cities with at least {{ threshold }} certified LCA filings, grouped by state.{% endblock %}
+{% block content %}
+<h1>H-1B Salaries by City</h1>
+<p class="lead">Cities with at least {{ threshold }} certified full-time H-1B filings, grouped by state.</p>
+<nav class="pills" aria-label="States">{% for st in states %}<a href="#{{ st.code }}">{{ st.code }}</a>{% endfor %}</nav>
+{% for st in states %}
+<h2 id="{{ st.code }}">{{ st.name }}</h2>
+<ul class="cols">{% for c in st.cities %}<li><a href="{{ c.url }}">{{ c.name }}</a> <span class="muted small">{{ c.n|num }}</span></li>
+{% endfor %}</ul>
+{% endfor %}
+{% endblock %}

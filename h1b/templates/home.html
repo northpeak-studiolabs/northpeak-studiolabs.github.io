@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}H-1B Salary Lookup {{ year }}: Search {{ n|num }} Certified H-1B Salaries{% endblock %}
+{% block description %}Search H-1B salaries by employer, job title and city. {{ n|num }} certified full-time H-1B LCA filings from the U.S. Department of Labor, {{ win_start|date }} – {{ win_end|date }}.{% endblock %}
+{% block content %}
+<h1>H-1B Salary Lookup {{ year }}</h1>
+<p class="lead">Offered salaries from {{ n|num }} certified full-time H-1B Labor Condition Applications decided {{ win_start|date }} – {{ win_end|date }}. Median {{ s.median|money }}.</p>
+<div class="search" role="search">
+<label for="q" class="muted small">Search an employer, job title or city</label>
+<input id="q" type="search" placeholder="e.g. Google, Data Scientist, Seattle" autocomplete="off" data-base="{{ base }}">
+<ul id="results"></ul>
+</div>
+{% with slot="home-top" %}{% include "_ads.html" %}{% endwith %}
+<h2>Top H-1B employers</h2>
+<div class="tbl"><table>
+<thead><tr><th>Employer</th><th class="n">Filings</th><th class="n">Median</th></tr></thead>
+<tbody>{% for e in top_emps %}<tr><td><a href="{{ e.url }}">{{ e.name }}</a></td><td class="n">{{ e.n|num }}</td><td class="n">{{ e.median|money }}</td></tr>
+{% endfor %}</tbody></table></div>
+<p><a href="{{ u('employers/') }}">All employers →</a></p>
+<div class="grid2">
+<div><h2>Popular job titles</h2>
+<div class="tbl"><table><thead><tr><th>Job title</th><th class="n">Median</th></tr></thead>
+<tbody>{% for t in top_titles %}<tr><td><a href="{{ t.url }}">{{ t.name }}</a></td><td class="n">{{ t.median|money }}</td></tr>
+{% endfor %}</tbody></table></div>
+<p><a href="{{ u('titles/') }}">All job titles →</a></p></div>
+<div><h2>Top cities</h2>
+<div class="tbl"><table><thead><tr><th>City</th><th class="n">Filings</th></tr></thead>
+<tbody>{% for c in top_cities %}<tr><td><a href="{{ c.url }}">{{ c.name }}</a></td><td class="n">{{ c.n|num }}</td></tr>
+{% endfor %}</tbody></table></div>
+<p><a href="{{ u('cities/') }}">All cities →</a></p></div>
+</div>
+<p class="note">These are wage rates employers attested to on certified LCAs, the step before an H-1B petition. They are not actual pay, and a certified LCA does not mean a visa was approved. <a href="{{ u('about/') }}">Methodology</a>.</p>
+{% endblock %}
+{% block scripts %}<script src="{{ u('assets/search.js') }}" defer></script>{% endblock %}

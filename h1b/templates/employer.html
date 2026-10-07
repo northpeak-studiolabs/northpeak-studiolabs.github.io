@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% from "_macros.html" import tiles, stat_table, levels_bars, recent_table %}
+{% block title %}{{ name }} H-1B Salaries {{ year }}: {{ n|num }} Filings, Median {{ s.median|money }}{% endblock %}
+{% block description %}{{ name }} H-1B salaries from {{ n|num }} certified LCA filings ({{ win_start|date }} – {{ win_end|date }}): median {{ s.median|money }}, middle 50% {{ s.p25|money }}–{{ s.p75|money }}. Salaries by job title and city.{% endblock %}
+{% block content %}
+<h1>{{ name }} H-1B Salaries {{ year }}</h1>
+<p class="lead">{{ n|num }} certified H-1B Labor Condition Applications for full-time roles at {{ name }}, decided {{ win_start|date }} – {{ win_end|date }}. Median offered salary {{ s.median|money }}.</p>
+{{ tiles(s, n) }}
+{% with slot="employer-top" %}{% include "_ads.html" %}{% endwith %}
+<h2>{{ name }} H-1B salaries by job title</h2>
+{{ stat_table(titles, "Job title") }}
+<div class="grid2">
+<div>
+<h2>Top cities</h2>
+{{ stat_table(cities, "City", range=False) }}
+</div>
+<div>
+<h2>Wage levels</h2>
+{{ levels_bars(levels) }}
+{% if pw_median %}<p class="small">Median prevailing wage on these filings: <strong>{{ pw_median|money }}</strong>.</p>{% endif %}
+</div>
+</div>
+{% with slot="employer-mid" %}{% include "_ads.html" %}{% endwith %}
+<h2>Recent {{ name }} H-1B filings</h2>
+<p class="muted small">Latest {{ recent|length }} of {{ n|num }} filings by decision date. Salary is the offered wage rate (annualised); "to" shows the top of a range when given.</p>
+{{ recent_table(recent) }}
+<p class="note">Employer names as filed: {{ variants|join("; ") }}. Name variants that differ only in case, punctuation or legal suffix (LLC, Inc., Corp.) are merged. Separate legal entities are listed separately. These are wages offered on certified LCAs, not actual pay.</p>
+{% endblock %}

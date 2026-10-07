@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}About & Methodology: H-1B Salary Data Sources{% endblock %}
+{% block description %}How this site's H-1B salary figures are built from U.S. Department of Labor LCA disclosure data, and what they do and do not mean.{% endblock %}
+{% block content %}
+<h1>About & methodology</h1>
+<h2>Data source</h2>
+<p>All figures come from the public <a href="https://www.dol.gov/agencies/eta/foreign-labor/performance" rel="nofollow">LCA disclosure data</a> published by the U.S. Department of Labor, Office of Foreign Labor Certification (OFLC).
+{% if manifest.used_files %}This build uses {{ manifest.used_files|join(", ") }}, covering fiscal quarters {{ manifest.quarters|join(", ") }}.{% endif %}
+Decision dates range from {{ d_min|date }} to {{ d_max|date }} ({{ n|num }} filings after filtering).</p>
+<h2>What these numbers are</h2>
+<p>Each row is a <strong>certified Labor Condition Application (LCA)</strong>. Employers file an LCA with the Department of Labor before filing an H-1B petition with USCIS, stating the job, worksite and the wage they will pay. Certification means DOL accepted the attestation. It does <strong>not</strong> mean a visa was approved or that anyone was hired, and the wage is what the employer offered, <strong>not actual pay</strong>. Bonuses, equity and benefits are not included. One employer may file several LCAs for the same person or role.</p>
+<h2>Filters and processing</h2>
+<ul>
+<li>Kept only rows with case status <em>Certified</em>, visa class <em>H-1B</em> (not H-1B1 or E-3) and a full-time position.</li>
+<li>Salaries use the lower bound of the offered wage (<code>WAGE_RATE_OF_PAY_FROM</code>), annualised: hourly × 2,080, weekly × 52, bi-weekly × 26, monthly × 12.</li>
+<li>Annualised wages outside {{ min_wage|money }}–{{ max_wage|money }} are treated as data-entry errors and left out of salary statistics ({{ bad_wage|num }} filings) but still counted as filings.</li>
+<li>Percentiles (25th, median, 75th) are linear-interpolated over individual filings.</li>
+<li>Employer names are merged when they differ only in case, punctuation or legal suffix (LLC, Inc., Corp., Ltd. etc.). Job titles are grouped after removing parenthetical notes, requisition numbers and trailing level numbers (e.g. "Software Engineer II" → "Software Engineer").</li>
+<li>Pages exist for employers with at least {{ me }} filings, job titles with at least {{ mt }} and cities with at least {{ mc }}.</li>
+</ul>
+<h2>Disclaimer</h2>
+<p>This site is an independent project by Northpeak Studio Labs. It is <strong>not affiliated with, endorsed by or connected to the U.S. Department of Labor, U.S. Citizenship and Immigration Services (USCIS)</strong>, or any employer shown. Data are provided as published by DOL and may contain errors. Nothing here is legal or immigration advice.</p>
+{% endblock %}

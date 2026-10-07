@@ -1,0 +1,38 @@
+{% macro tiles(s, n, label="Filings") %}
+<div class="tiles">
+<div class="tile"><b>{{ s.median|money }}</b><span>Median salary</span></div>
+<div class="tile"><b>{{ s.p25|money }}</b><span>25th percentile</span></div>
+<div class="tile"><b>{{ s.p75|money }}</b><span>75th percentile</span></div>
+<div class="tile"><b>{{ n|num }}</b><span>{{ label }}</span></div>
+</div>
+{% endmacro %}
+
+{% macro link(name, url) %}{% if url %}<a href="{{ url }}">{{ name }}</a>{% else %}{{ name }}{% endif %}{% endmacro %}
+
+{% macro stat_table(rows, first="Name", range=True) %}
+<div class="tbl"><table>
+<thead><tr><th>{{ first }}</th><th class="n">Filings</th><th class="n">Median</th>{% if range %}<th class="n hide-sm">Middle 50%</th>{% endif %}</tr></thead>
+<tbody>
+{% for r in rows %}<tr><td>{{ link(r.name, r.url) }}</td><td class="n">{{ r.n|num }}</td><td class="n">{{ r.median|money }}</td>{% if range %}<td class="n hide-sm">{% if r.p25 is not none %}{{ r.p25|money }} – {{ r.p75|money }}{% else %}—{% endif %}</td>{% endif %}</tr>
+{% endfor %}
+</tbody></table></div>
+{% endmacro %}
+
+{% macro levels_bars(levels) %}
+{% if levels %}
+<div class="bars">
+{% for l in levels %}<div class="bar"><span>{{ l.label }}</span><s><i style="width:{{ l.pct }}%"></i></s><span class="muted small">{{ l.pct }}% · {{ l.n|num }}</span></div>
+{% endfor %}
+</div>
+<p class="muted small">Prevailing-wage level the employer selected (I = entry, IV = fully competent).</p>
+{% endif %}
+{% endmacro %}
+
+{% macro recent_table(rows, show_employer=False) %}
+<div class="tbl"><table>
+<thead><tr><th>Certified</th><th class="hide-sm">Start</th>{% if show_employer %}<th>Employer</th>{% endif %}<th>Job title</th><th class="hide-sm">Location</th><th class="n">Salary</th><th class="hide-sm">Level</th></tr></thead>
+<tbody>
+{% for r in rows %}<tr><td class="d">{{ r.dd }}</td><td class="hide-sm">{{ r.begin }}</td>{% if show_employer %}<td>{{ link(r.emp, r.eurl) }}</td>{% endif %}<td>{{ link(r.title, r.turl) }}</td><td class="hide-sm">{{ link(r.city, r.curl) }}</td><td class="n">{{ r.wfrom|money }}{% if r.wto %}<br><span class="muted small">to {{ r.wto|money }}</span>{% endif %}</td><td class="hide-sm">{{ r.level }}</td></tr>
+{% endfor %}
+</tbody></table></div>
+{% endmacro %}

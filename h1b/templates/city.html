@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% from "_macros.html" import tiles, stat_table, levels_bars %}
+{% block title %}H-1B Salaries in {{ name }} {{ year }}: {{ n|num }} Filings, Median {{ s.median|money }}{% endblock %}
+{% block description %}H-1B salaries in {{ name }}: {{ n|num }} certified LCA filings, median {{ s.median|money }} ({{ win_start|date }} – {{ win_end|date }}). Top H-1B employers and job titles in {{ name }}.{% endblock %}
+{% block content %}
+<h1>H-1B Salaries in {{ name }}</h1>
+<p class="lead">{{ n|num }} certified full-time H-1B filings for worksites in {{ name.split(",")[0] }}, {{ state }}, decided {{ win_start|date }} – {{ win_end|date }}.</p>
+{{ tiles(s, n) }}
+{% with slot="city-top" %}{% include "_ads.html" %}{% endwith %}
+<h2>Top H-1B employers in {{ name }}</h2>
+{{ stat_table(emps, "Employer") }}
+<h2>Top H-1B job titles in {{ name }}</h2>
+{{ stat_table(titles, "Job title") }}
+<div class="grid2">
+<div><h2>Highest-paying employers</h2><p class="muted small">At least 5 filings in {{ name }}.</p>{{ stat_table(top_paying, "Employer", range=False) }}</div>
+<div><h2>Wage levels</h2>{{ levels_bars(levels) }}</div>
+</div>
+{% endblock %}

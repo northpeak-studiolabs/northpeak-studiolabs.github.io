@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}{{ label }} Starting With {{ letter }}: H-1B Salaries {{ year }}{% endblock %}
+{% block description %}H-1B salary data for {{ items|length|num }} {{ label|lower }} starting with {{ letter }}, from certified Department of Labor LCA filings.{% endblock %}
+{% block content %}
+<h1>H-1B {{ label }}: {{ letter }}</h1>
+<nav class="pills" aria-label="Letters">{% for x in nav %}<a href="{{ x.url }}"{% if x.L == letter %} class="on"{% endif %}>{{ x.L }}</a>{% endfor %}</nav>
+<ul class="cols">{% for it in items %}<li><a href="{{ it.url }}">{{ it.name }}</a> <span class="muted small">{{ it.n|num }}</span></li>
+{% endfor %}</ul>
+{% endblock %}

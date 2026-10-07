@@ -1,0 +1,3 @@
+{# ADS placeholder. Renders nothing unless ADS_HTML is set in the build environment
+   (or you replace this block with your ad markup). `slot` names the position. #}
+{% if ads_html %}<div class="ad" data-slot="{{ slot }}">{{ ads_html|safe }}</div>{% endif %}

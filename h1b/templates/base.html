@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{% block title %}{% endblock %}</title>
+<meta name="description" content="{% block description %}{% endblock %}">
+<meta name="robots" content="{% block robots %}index,follow,max-snippet:-1{% endblock %}">
+<link rel="canonical" href="{{ canonical }}">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{ self.title() }}">
+<meta property="og:description" content="{{ self.description() }}">
+<meta property="og:url" content="{{ canonical }}">
+<meta name="color-scheme" content="light dark">
+<link rel="stylesheet" href="{{ u('assets/style.css') }}">
+<script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<script type="application/ld+json">{{ breadcrumb_ld|safe }}</script>
+</head>
+<body>
+<header class="top"><div class="wrap">
+<a class="brand" href="{{ u() }}">{{ site_name }}</a>
+<nav class="main"><a href="{{ u('employers/') }}">Employers</a><a href="{{ u('titles/') }}">Job titles</a><a href="{{ u('cities/') }}">Cities</a><a href="{{ u('about/') }}">About</a></nav>
+<button id="theme" type="button" aria-label="Toggle dark mode">◐</button>
+</div></header>
+<main class="wrap">
+{% if crumbs|length > 1 %}
+<nav class="crumbs" aria-label="Breadcrumb"><ol>{% for n, h in crumbs %}<li>{% if loop.last %}<span aria-current="page">{{ n }}</span>{% else %}<a href="{{ h }}">{{ n }}</a>{% endif %}</li>{% endfor %}</ol></nav>
+{% endif %}
+{% block content %}{% endblock %}
+</main>
+<footer><div class="wrap">
+<p>Data: U.S. Department of Labor, OFLC LCA disclosure files, decisions {{ win_start|date }} – {{ win_end|date }}. Figures are wages offered on certified Labor Condition Applications, not actual pay.</p>
+<p><strong>Not affiliated with the U.S. Department of Labor, USCIS or any employer listed.</strong> Not legal advice. · <a href="{{ u('about/') }}">Methodology</a> · <a href="{{ u('privacy/') }}">Privacy</a> · <a href="{{ u('sitemap.xml') }}">Sitemap</a></p>
+<p>© {{ year }} Northpeak Studio Labs</p>
+</div></footer>
+<script>document.getElementById('theme').onclick=function(){var d=document.documentElement,c=d.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'),n=c==='dark'?'light':'dark';d.setAttribute('data-theme',n);try{localStorage.setItem('theme',n)}catch(e){}}</script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

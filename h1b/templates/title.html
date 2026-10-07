@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% from "_macros.html" import tiles, stat_table, levels_bars %}
+{% block title %}{{ name }} H-1B Salary by Company {{ year }}: Median {{ s.median|money }} ({{ n|num }} Filings){% endblock %}
+{% block description %}{{ name }} H-1B salaries: median {{ s.median|money }} across {{ n|num }} certified LCA filings ({{ win_start|date }} – {{ win_end|date }}). Top-paying companies, biggest sponsors and cities.{% endblock %}
+{% block content %}
+<h1>{{ name }} H-1B Salary by Company</h1>
+<p class="lead">{{ n|num }} certified full-time H-1B filings for "{{ name }}" and close variants, decided {{ win_start|date }} – {{ win_end|date }}.{% if socs %} Most common occupation codes: {{ socs|join(", ") }}.{% endif %}</p>
+{{ tiles(s, n) }}
+{% with slot="title-top" %}{% include "_ads.html" %}{% endwith %}
+<h2>Top-paying companies for {{ name }}</h2>
+<p class="muted small">Employers with at least 3 filings for this title, ranked by median offered salary.</p>
+{% if top_paying %}{{ stat_table(top_paying, "Company") }}{% else %}<p class="muted">No employer has 3 or more filings for this title.</p>{% endif %}
+<h2>Companies filing the most {{ name }} H-1Bs</h2>
+{{ stat_table(top_emps, "Company") }}
+<div class="grid2">
+<div><h2>Top cities</h2>{{ stat_table(cities, "City", range=False) }}</div>
+<div><h2>Wage levels</h2>{{ levels_bars(levels) }}</div>
+</div>
+{% endblock %}
