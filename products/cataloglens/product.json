@@ -3,12 +3,31 @@
   "tagline": "See any Shopify store's theme, apps and catalog, and export its products to CSV.",
   "price": "$19.99",
   "pro_name": "CatalogLens for Shopify Pro",
-  "checkout_url": null,
+  "checkout_url": "https://northpeaklabs.gumroad.com/l/cataloglens-pro",
   "store_links": {},
-  "how": ["Open any online store.", "Click the CatalogLens button.", "See whether it runs on Shopify, its theme, apps, product count, prices and newest products, then export the catalog."],
+  "how": [
+    "Open any online store.",
+    "Click the CatalogLens button.",
+    "See whether it runs on Shopify, its theme, apps, product count, prices and newest products, then export the catalog."
+  ],
   "fields": "Title, URL, vendor, type, tags, dates, price range, compare-at price, discount, stock, options, image link and description. Pro adds one row per variant with SKU and availability.",
-  "free": ["Shopify check, theme, apps and catalog stats", "Newest products", "CSV of up to 100 products"],
-  "pro": ["Unlimited export (thousands of products)", "One row per variant with SKU, price and stock", "JSON export", "The store's top 10 best-sellers", "Watchlist: see how many products a store added since your last check"],
+  "free": [
+    "Shopify check, theme, apps and catalog stats",
+    "Newest products",
+    "CSV of up to 100 products"
+  ],
+  "pro": [
+    "Unlimited export (thousands of products)",
+    "One row per variant with SKU, price and stock",
+    "JSON export",
+    "The store's top 10 best-sellers",
+    "Watchlist: see how many products a store added since your last check"
+  ],
   "who": "Dropshippers and product researchers, Shopify agencies sizing up a prospect, app makers and anyone comparing prices across stores.",
-  "note": "CatalogLens for Shopify is an independent tool and is not affiliated with or endorsed by Shopify Inc."
+  "note": "CatalogLens for Shopify is an independent tool and is not affiliated with or endorsed by Shopify Inc.",
+  "license": {
+    "provider": "gumroad",
+    "product_id": "Ix8dhP1fXkSLvvxrFoyJYg==",
+    "max_uses": 3
+  }
 }
