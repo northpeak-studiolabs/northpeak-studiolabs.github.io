@@ -4,7 +4,9 @@
   "price": "$24.99",
   "pro_name": "Maps Reviews Exporter Pro",
   "checkout_url": "https://northpeaklabs.gumroad.com/l/maps-reviews-exporter-pro",
-  "store_links": {},
+  "store_links": {
+    "Chrome Web Store": "https://chromewebstore.google.com/detail/maps-reviews-exporter-rev/diboglcabfkcinmhjnmlmeplilighncl"
+  },
   "how": [
     "Open any business in Google Maps.",
     "Click the extension and press Collect reviews. It scrolls the list and expands long reviews for you.",

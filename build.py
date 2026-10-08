@@ -74,9 +74,10 @@ def product(slug: str, src: Path) -> dict:
         buy = f'<a class="btn" href="{html.escape(p["checkout_url"])}">Buy {html.escape(p["pro_name"])}, {p["price"]} once</a>'
     else:
         buy = '<span class="btn off">Pro checkout opens soon</span>'
-    stores = ' · '.join(f'<a href="{html.escape(u)}">{html.escape(n)}</a>' for n, u in p.get('store_links', {}).items())
+    links = p.get('store_links', {})
+    stores = ' '.join(f'<a class="btn" href="{html.escape(u)}">Add to {html.escape(n.split()[0])}, free</a>' for n, u in links.items())
     body = f"""<div class="hero"><img src="icon-128.png" alt=""><div><h1>{html.escape(p['name'])}</h1><p class="lead">{html.escape(p['tagline'])}</p></div></div>
-{('<p>Get it: ' + stores + '</p>') if stores else ''}
+{('<p>' + stores + ' <a href="#pricing">See Pro</a></p>') if stores else '<p><small>Coming soon to the browser stores.</small></p>'}
 <div class="shots">{shots}</div>
 <h2>How it works</h2><ol>{''.join(f'<li>{html.escape(s)}</li>' for s in p['how'])}</ol>
 <h2>What you get</h2><p>{html.escape(p['fields'])}</p>
