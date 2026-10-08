@@ -110,8 +110,11 @@ def main() -> None:
              '<a class="card" href="recallflag/"><div><strong>RecallFlag</strong><br><span>Search U.S. vehicle, food, drug and product recalls, updated daily.</span></div></a></div>')
     (OUT / 'index.html').write_text(page(SITE, 'Small, private browser tools. Pay once, no subscriptions.', body, 0), encoding='utf-8')
     (OUT / '.nojekyll').write_text('')
-    for f in (HERE / 'static_root').iterdir():  # IndexNow key file
-        shutil.copy(f, OUT / f.name)
+    for f in (HERE / 'static_root').rglob('*'):  # IndexNow key file, pinleads/license.json
+        if f.is_file():
+            dst = OUT / f.relative_to(HERE / 'static_root')
+            dst.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy(f, dst)
     (OUT / 'robots.txt').write_text('User-agent: *\nAllow: /\nDisallow: /recallflag/search/\n\n' + ''.join(f'Sitemap: {BASE}/{m}\n' for m in SITEMAPS))
     print('Built', len(cards), 'product page(s)')
 
