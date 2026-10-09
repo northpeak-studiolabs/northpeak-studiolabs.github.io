@@ -23,6 +23,9 @@ def main() -> None:
     dist = HERE / 'dist'
     urls = [BASE + '/'] + [f'{BASE}/{p.parent.relative_to(dist).as_posix()}/' for p in dist.glob('*/index.html')
                            if p.parent.name != 'h1b' and (p.parent / 'privacy').exists()]
+    root_map = dist / 'sitemap.xml'  # product pages and guides
+    if root_map.exists():
+        urls += LOC_RE.findall(root_map.read_text(encoding='utf-8'))
     if '--all' in sys.argv or os.environ.get('INDEXNOW_ALL') == 'true' or os.environ.get('H1B_CHANGED') == 'true':
         sitemap = dist / 'h1b' / 'sitemap.xml'
         if sitemap.exists():

@@ -18,7 +18,7 @@ HERE = Path(__file__).parent
 OUT = HERE / 'dist'
 SITE = 'Northpeak Studio Labs'
 BASE = 'https://northpeak-studiolabs.github.io'
-SITEMAPS = ['h1b/sitemap.xml', 'recallflag/sitemap.xml']
+SITEMAPS = ['sitemap.xml', 'h1b/sitemap.xml', 'recallflag/sitemap.xml']
 
 CSS = """
 :root{--bg:#fff;--fg:#1d2330;--muted:#5b6475;--line:#e3e6ec;--accent:#2457d6;--accent-ink:#fff;--card:#f6f7fa}
@@ -96,6 +96,25 @@ def product(slug: str, src: Path) -> dict:
     return p
 
 
+def guides() -> list[dict]:
+    """guides/<slug>/guide.json + body.html -> how-to articles that send search traffic to the products."""
+    out = []
+    for src in sorted((HERE / 'guides').glob('*/guide.json')):
+        g = json.loads(src.read_text()); g['slug'] = src.parent.name
+        body = (src.parent / 'body.html').read_text(encoding='utf-8')
+        body += f'<p><small>Updated {g["updated"]}.</small></p>'
+        dst = OUT / 'guides' / g['slug']
+        dst.mkdir(parents=True, exist_ok=True)
+        (dst / 'index.html').write_text(page(g['title'], g['description'], body, 2), encoding='utf-8')
+        out.append(g)
+    if out:
+        items = ''.join(f'<a class="card" href="{g["slug"]}/"><div><strong>{html.escape(g["title"])}</strong><br>'
+                        f'<span>{html.escape(g["description"])}</span></div></a>' for g in out)
+        (OUT / 'guides' / 'index.html').write_text(page(f'Guides | {SITE}', 'How-to guides for exporting data from the web to spreadsheets.',
+                                                       f'<h1>Guides</h1><div class="products">{items}</div>', 1), encoding='utf-8')
+    return out
+
+
 def main() -> None:
     shutil.rmtree(OUT, ignore_errors=True)
     OUT.mkdir()
@@ -109,6 +128,10 @@ def main() -> None:
     body += ('<h2>Free data sites</h2><div class="products">'
              '<a class="card" href="h1b/"><div><strong>H-1B Salary Lookup</strong><br><span>Offered salaries from 485,000+ certified H-1B filings, by employer, job title and city.</span></div></a>'
              '<a class="card" href="recallflag/"><div><strong>RecallFlag</strong><br><span>Search U.S. vehicle, food, drug and product recalls, updated daily.</span></div></a></div>')
+    gs = guides()
+    if gs:
+        body += '<h2>Guides</h2><div class="products">' + ''.join(
+            f'<a class="card" href="guides/{g["slug"]}/"><div><strong>{html.escape(g["title"])}</strong></div></a>' for g in gs) + '</div>'
     (OUT / 'index.html').write_text(page(SITE, 'Small, private browser tools. Pay once, no subscriptions.', body, 0), encoding='utf-8')
     (OUT / '.nojekyll').write_text('')
     for f in (HERE / 'static_root').rglob('*'):  # IndexNow key file, pinleads/license.json
@@ -116,6 +139,11 @@ def main() -> None:
             dst = OUT / f.relative_to(HERE / 'static_root')
             dst.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy(f, dst)
+    urls = [BASE + '/'] + [f'{BASE}/{d.parent.relative_to(OUT).as_posix()}/' for d in sorted(OUT.glob('*/index.html'))
+                           if (d.parent / 'privacy').exists()]
+    urls += [f'{BASE}/guides/'] + [f'{BASE}/guides/{g["slug"]}/' for g in gs] if gs else []
+    (OUT / 'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+                                     + ''.join(f'<url><loc>{u}</loc></url>' for u in urls) + '</urlset>\n')
     (OUT / 'robots.txt').write_text('User-agent: *\nAllow: /\nDisallow: /recallflag/search/\n\n' + ''.join(f'Sitemap: {BASE}/{m}\n' for m in SITEMAPS))
     print('Built', len(cards), 'product page(s)')
 

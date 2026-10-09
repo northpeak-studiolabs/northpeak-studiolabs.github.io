@@ -1,0 +1,40 @@
+<h1>How to export Google Maps reviews to CSV or Excel</h1>
+<p class="lead">Google Maps has no "Download reviews" button, not even for the business owner. Here are the three ways people actually get reviews into a spreadsheet, from slowest to fastest.</p>
+
+<h2>Option 1: copy and paste (fine for 10 reviews)</h2>
+<ol>
+<li>Open the place in Google Maps and click the <strong>Reviews</strong> tab.</li>
+<li>Click <strong>More</strong> on every long review, because collapsed text gets cut off.</li>
+<li>Select the reviews, copy, and paste into Google Sheets or Excel.</li>
+<li>Clean up by hand: names, stars and dates land in random cells, and star ratings don't copy as numbers.</li>
+</ol>
+<p>This works for a handful of reviews. Past about 20 it gets slow and error-prone.</p>
+
+<h2>Option 2: the Google Business Profile API (only your own business)</h2>
+<p>If you own the listing, the Business Profile API can list your reviews. You need a Google Cloud project, API access approval from Google, and some code. It never works for competitors' listings, so it doesn't help with market research or audits for clients.</p>
+
+<h2>Option 3: a browser extension (any place, one click)</h2>
+<p><a href="../../maps-reviews-exporter/">Maps Reviews Exporter</a> is a free Chrome extension that reads the reviews you can already see on the page and saves them as a clean spreadsheet.</p>
+<ol>
+<li><a href="https://chromewebstore.google.com/detail/maps-reviews-exporter-rev/diboglcabfkcinmhjnmlmeplilighncl">Add it to Chrome</a> (it also works in Brave, Edge and other Chromium browsers).</li>
+<li>Open any business in Google Maps.</li>
+<li>Click the extension icon and press <strong>Collect reviews</strong>. It scrolls the list and expands long reviews for you.</li>
+<li>Click <strong>Export CSV</strong>, then open the file in Excel or Google Sheets.</li>
+</ol>
+
+<h2>What columns you get</h2>
+<p>One row per review: reviewer name and profile link, star rating (as a number), the date as Google shows it ("3 months ago") plus an estimated calendar date, the full text, the owner's response, photo and like counts, and sub-ratings such as Food, Service and Atmosphere when the place has them. Every row also carries the place name, address and overall rating, so you can combine exports from several places in one sheet.</p>
+
+<h2>What people use it for</h2>
+<ul>
+<li><strong>Reputation tracking:</strong> export your own reviews every month and chart the average rating.</li>
+<li><strong>Competitor research:</strong> export the top 5 competitors and look for complaints that repeat.</li>
+<li><strong>Agency audits:</strong> give a client a spreadsheet of every unanswered negative review.</li>
+<li><strong>Research:</strong> collect review text for sentiment or keyword analysis.</li>
+</ul>
+
+<h2>Free vs Pro</h2>
+<p>The free version exports up to 50 reviews per place to CSV. <a href="../../maps-reviews-exporter/#pricing">Pro</a> ($24.99 once, no subscription) removes the limit and adds JSON export, star and keyword filters, and a summary with rating by month and owner response rate.</p>
+
+<h2>Is it allowed?</h2>
+<p>The extension only reads what your own browser already shows you, one place at a time, the same as copying by hand. Nothing is sent to our servers. Use the data the way you would any public review: for analysis, not to republish other people's reviews as your own content.</p>
