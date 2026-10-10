@@ -62,7 +62,7 @@ def li(items: list[str]) -> str:
     return '<ul>' + ''.join(f'<li>{html.escape(i)}</li>' for i in items) + '</ul>'
 
 
-def product(slug: str, src: Path) -> dict:
+def product(slug: str, src: Path, related: list[dict] = ()) -> dict:
     p = json.loads((src / 'product.json').read_text())
     dst = OUT / slug
     (dst / 'privacy').mkdir(parents=True, exist_ok=True)
@@ -87,6 +87,7 @@ def product(slug: str, src: Path) -> dict:
 <p><small>After paying, your license key appears on the receipt and in your email. Open the extension, paste it into "Paste license key" and click Activate. Works on up to 3 browsers.</small></p></div></div>
 <h2>Who uses it</h2><p>{html.escape(p['who'])}</p>
 <h2>Privacy</h2><p>Everything runs in your browser. No account, no tracking, and your data never passes through our servers. <a href="privacy/">Read the privacy policy</a>.</p>
+{('<h2>Guides</h2><ul>' + ''.join(f'<li><a href="../guides/{g["slug"]}/">{html.escape(g["title"])}</a></li>' for g in related) + '</ul>') if related else ''}
 <p><small>{html.escape(p['note'])}</small></p>"""
     if p.get('license'):  # read by the extension: which payment provider and product a key must belong to
         (dst / 'license.json').write_text(json.dumps(p['license']))
@@ -119,16 +120,16 @@ def main() -> None:
     shutil.rmtree(OUT, ignore_errors=True)
     OUT.mkdir()
     cards = []
+    gs = guides()
     for src in sorted((HERE / 'products').iterdir()):
         if (src / 'product.json').exists():
-            p = product(src.name, src)
+            p = product(src.name, src, [g for g in gs if g.get('product') == src.name])
             cards.append(f'<a class="card" href="{src.name}/"><img src="{src.name}/icon-128.png" alt=""><div><strong>{html.escape(p["name"])}</strong><br>'
                          f'<span>{html.escape(p["tagline"])}</span></div></a>')
     body = f'<h1>{SITE}</h1><p class="lead">Small, private browser tools that export the data you need. Pay once, no subscriptions.</p><div class="products">{"".join(cards)}</div>'
     body += ('<h2>Free data sites</h2><div class="products">'
              '<a class="card" href="h1b/"><div><strong>H-1B Salary Lookup</strong><br><span>Offered salaries from 485,000+ certified H-1B filings, by employer, job title and city.</span></div></a>'
              '<a class="card" href="recallflag/"><div><strong>RecallFlag</strong><br><span>Search U.S. vehicle, food, drug and product recalls, updated daily.</span></div></a></div>')
-    gs = guides()
     if gs:
         body += '<h2>Guides</h2><div class="products">' + ''.join(
             f'<a class="card" href="guides/{g["slug"]}/"><div><strong>{html.escape(g["title"])}</strong></div></a>' for g in gs) + '</div>'
