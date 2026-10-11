@@ -29,5 +29,39 @@
     "provider": "gumroad",
     "product_id": "6Njp3OX05WgaWOaNR9qcwg==",
     "max_uses": 3
-  }
+  },
+  "faq": [
+    [
+      "Does it work on any business, or only my own?",
+      "Any place on Google Maps with public reviews: your business, competitors, restaurants, hotels, shops and so on."
+    ],
+    [
+      "Is there a limit on how many reviews it can export?",
+      "Free exports up to 50 reviews per place. Pro has no limit; places with thousands of reviews just take longer to scroll."
+    ],
+    [
+      "Where does my data go?",
+      "Nowhere. The extension reads the page in your own browser and saves the file on your computer. Nothing passes through our servers."
+    ],
+    [
+      "Is it a subscription?",
+      "No. You pay once and Pro is yours, including future updates."
+    ],
+    [
+      "How do I unlock Pro after paying?",
+      "Your license key is shown on the receipt page and emailed to you. Open the extension, paste the key into \"Paste license key\" and click Activate."
+    ],
+    [
+      "Can I use it on more than one computer?",
+      "Yes. One key works on up to 3 browsers, for example your work and home computers."
+    ],
+    [
+      "I lost my license key. Where do I find it?",
+      "Search your email for the receipt, or sign in to your Gumroad library with the email you paid with. The key is on the receipt."
+    ],
+    [
+      "Does it work in Brave, Edge or Opera?",
+      "Yes. It installs from the Chrome Web Store into any Chromium-based browser."
+    ]
+  ]
 }

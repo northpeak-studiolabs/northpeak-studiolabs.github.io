@@ -29,5 +29,39 @@
     "provider": "gumroad",
     "product_id": "Ix8dhP1fXkSLvvxrFoyJYg==",
     "max_uses": 3
-  }
+  },
+  "faq": [
+    [
+      "Does it work on stores that aren't on Shopify?",
+      "It tells you whether a store runs on Shopify. Theme, app and catalog details are only available for Shopify stores."
+    ],
+    [
+      "How many products can it export?",
+      "Free exports up to 100 products. Pro exports the full catalog, including stores with thousands of products, with one row per variant."
+    ],
+    [
+      "Where does my data go?",
+      "Nowhere. The extension reads public store data in your own browser and saves the file on your computer. Nothing passes through our servers."
+    ],
+    [
+      "Is it a subscription?",
+      "No. You pay once and Pro is yours, including future updates."
+    ],
+    [
+      "How do I unlock Pro after paying?",
+      "Your license key is shown on the receipt page and emailed to you. Open the extension, paste the key into \"Paste license key\" and click Activate."
+    ],
+    [
+      "Can I use it on more than one computer?",
+      "Yes. One key works on up to 3 browsers, for example your work and home computers."
+    ],
+    [
+      "I lost my license key. Where do I find it?",
+      "Search your email for the receipt, or sign in to your Gumroad library with the email you paid with. The key is on the receipt."
+    ],
+    [
+      "Does it work in Brave, Edge or Opera?",
+      "Yes. It installs from the Chrome Web Store into any Chromium-based browser."
+    ]
+  ]
 }

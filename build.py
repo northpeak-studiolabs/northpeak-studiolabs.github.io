@@ -37,10 +37,10 @@ footer{border-top:1px solid var(--line);margin-top:48px;padding:20px 0;color:var
 """
 
 
-def page(title: str, desc: str, body: str, depth: int) -> str:
+def page(title: str, desc: str, body: str, depth: int, head: str = '') -> str:
     root = '../' * depth
     return f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>{html.escape(title)}</title><meta name="description" content="{html.escape(desc)}"><style>{CSS}</style></head>
+<title>{html.escape(title)}</title><meta name="description" content="{html.escape(desc)}"><style>{CSS}</style>{head}</head>
 <body><header><div class="wrap"><a href="{root}">{SITE}</a></div></header><main class="wrap">{body}</main>
 <footer><div class="wrap">© 2026 {SITE} · <a href="{root}">All products</a></div></footer></body></html>"""
 
@@ -76,6 +76,16 @@ def product(slug: str, src: Path, related: list[dict] = ()) -> dict:
         buy = '<span class="btn off">Pro checkout opens soon</span>'
     links = p.get('store_links', {})
     stores = ' '.join(f'<a class="btn" href="{html.escape(u)}">Add to {html.escape(n.split()[0])}, free</a>' for n, u in links.items())
+    faq = p.get('faq', [])
+    faq_html = ('<h2>Questions</h2>' + ''.join(f'<h3>{html.escape(q)}</h3><p>{html.escape(a)}</p>' for q, a in faq)) if faq else ''
+    ld = [{'@context': 'https://schema.org', '@type': 'SoftwareApplication', 'name': p['name'], 'description': p['tagline'],
+           'applicationCategory': 'BrowserApplication', 'operatingSystem': 'Chrome',
+           'offers': [{'@type': 'Offer', 'name': 'Free', 'price': '0', 'priceCurrency': 'USD'},
+                      {'@type': 'Offer', 'name': p['pro_name'], 'price': p['price'].lstrip('$'), 'priceCurrency': 'USD'}]}]
+    if faq:
+        ld.append({'@context': 'https://schema.org', '@type': 'FAQPage', 'mainEntity': [
+            {'@type': 'Question', 'name': q, 'acceptedAnswer': {'@type': 'Answer', 'text': a}} for q, a in faq]})
+    head = ''.join('<script type="application/ld+json">' + json.dumps(x).replace('</', '<\\/') + '</script>' for x in ld)
     body = f"""<div class="hero"><img src="icon-128.png" alt=""><div><h1>{html.escape(p['name'])}</h1><p class="lead">{html.escape(p['tagline'])}</p></div></div>
 {('<p>' + stores + ' <a href="#pricing">See Pro</a></p>') if stores else '<p><small>Coming soon to the browser stores.</small></p>'}
 <div class="shots">{shots}</div>
@@ -88,10 +98,11 @@ def product(slug: str, src: Path, related: list[dict] = ()) -> dict:
 <h2>Who uses it</h2><p>{html.escape(p['who'])}</p>
 <h2>Privacy</h2><p>Everything runs in your browser. No account, no tracking, and your data never passes through our servers. <a href="privacy/">Read the privacy policy</a>.</p>
 {('<h2>Guides</h2><ul>' + ''.join(f'<li><a href="../guides/{g["slug"]}/">{html.escape(g["title"])}</a></li>' for g in related) + '</ul>') if related else ''}
+{faq_html}
 <p><small>{html.escape(p['note'])}</small></p>"""
     if p.get('license'):  # read by the extension: which payment provider and product a key must belong to
         (dst / 'license.json').write_text(json.dumps(p['license']))
-    (dst / 'index.html').write_text(page(f"{p['name']}: {p['tagline']}", p['tagline'], body, 1), encoding='utf-8')
+    (dst / 'index.html').write_text(page(f"{p['name']}: {p['tagline']}", p['tagline'], body, 1, head), encoding='utf-8')
     priv = md_to_html((src / 'privacy.md').read_text())
     (dst / 'privacy' / 'index.html').write_text(page(f"{p['name']} privacy policy", f"Privacy policy for {p['name']}.", priv, 2), encoding='utf-8')
     return p
