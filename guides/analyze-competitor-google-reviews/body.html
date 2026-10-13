@@ -1,0 +1,29 @@
+<h1>How to analyze competitors' Google reviews in a spreadsheet</h1>
+<p class="lead">Your competitors' customers are telling you, in public, what they love and what annoys them. Reading 500 reviews one by one takes hours. Putting them in a spreadsheet takes about ten minutes and turns them into answers.</p>
+
+<h2>Step 1: export the reviews</h2>
+<ol>
+<li><a href="https://chromewebstore.google.com/detail/maps-reviews-exporter-rev/diboglcabfkcinmhjnmlmeplilighncl">Add Maps Reviews Exporter to Chrome</a> (free).</li>
+<li>Open your first competitor on Google Maps, click the extension and press <strong>Collect reviews</strong>, then <strong>Export CSV</strong>.</li>
+<li>Repeat for 2 to 4 competitors, and for your own business.</li>
+<li>In Google Sheets, import each CSV into one sheet (File, Import, "Append to current sheet"). Every row keeps the place name, so you can tell them apart.</li>
+</ol>
+
+<h2>Step 2: compare average ratings</h2>
+<p>Assuming the place name is in column A and the star rating in column E (check your header row and adjust the letters):</p>
+<pre><code>=QUERY(A:E, "select A, avg(E), count(E) where E is not null group by A order by avg(E) desc", 1)</code></pre>
+<p>This gives one line per business with its average rating and number of reviews.</p>
+
+<h2>Step 3: see the trend by month</h2>
+<p>Use the estimated date column to see who is improving and who is slipping. Add a helper column with <code>=TEXT(F2, "yyyy-mm")</code> (F being the date), then make a pivot table: rows = place name, columns = month, values = average of rating. A business whose recent months are lower than its overall average is having a bad patch, which is an opening for you.</p>
+
+<h2>Step 4: find the repeated complaints</h2>
+<p>Filter to 1 and 2 star reviews, then count how often common topics come up. With the review text in column G:</p>
+<pre><code>=COUNTIFS(E:E, "&lt;=2", G:G, "*wait*")</code></pre>
+<p>Swap "wait" for words that matter in your trade: price, rude, dirty, late, cold, booking, parking, refund. The words that show up most for competitors are what you should promise (and deliver) in your own ads.</p>
+
+<h2>Step 5: check who answers their reviews</h2>
+<p>Count reviews with an empty owner response column. Businesses that never reply to bad reviews look careless to new customers. Replying to every review is one of the cheapest ways to stand out.</p>
+
+<h2>Faster with Pro</h2>
+<p>The free version exports up to 50 reviews per place. <a href="../../maps-reviews-exporter/#pricing">Pro</a> ($24.99 once) exports every review, filters by star rating and keyword before export, and builds the rating-by-month, owner-response-rate and most-mentioned-words summary for you.</p>
