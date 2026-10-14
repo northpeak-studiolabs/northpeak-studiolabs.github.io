@@ -1,0 +1,39 @@
+<h1>How to build a Google reviews audit for a client</h1>
+<p class="lead">A reviews audit is one of the easiest things an agency can sell or add to an onboarding: it shows a local business how customers see it, how it compares with nearby competitors, and what to fix first. Here's a repeatable way to build one in under an hour, with nothing but a spreadsheet.</p>
+
+<h2>1. Collect the reviews</h2>
+<p>Google Business Profile has no export button, and the API only works for profiles you manage. Reviews are public on Google Maps, though, so you can export them from there with <a href="../../maps-reviews-exporter/">Maps Reviews Exporter</a>.</p>
+<ol>
+<li><a href="https://chromewebstore.google.com/detail/maps-reviews-exporter-rev/diboglcabfkcinmhjnmlmeplilighncl">Add Maps Reviews Exporter to Chrome</a>.</li>
+<li>Open the client's listing on Google Maps, click the extension, set the sort to <strong>Newest</strong> and press <strong>Collect reviews</strong>.</li>
+<li>Click <strong>Export CSV</strong>. Repeat for the client's three closest competitors (search the client's category and pick the top map results).</li>
+<li>Paste each export into its own tab of one Google Sheet: <em>Client</em>, <em>Comp 1</em>, <em>Comp 2</em>, <em>Comp 3</em>.</li>
+</ol>
+
+<h2>2. The five numbers every audit needs</h2>
+<p>In a <em>Summary</em> tab, calculate these for each business. In the export, <em>rating</em> is column I, <em>date_estimated</em> is K, <em>text</em> is M and <em>owner_response</em> is Q.</p>
+<table>
+<tr><th>Metric</th><th>Google Sheets formula</th></tr>
+<tr><td>Average rating</td><td><code>=AVERAGE(Client!I2:I)</code></td></tr>
+<tr><td>Share of 1 and 2 star reviews</td><td><code>=COUNTIF(Client!I2:I,"&lt;=2")/COUNT(Client!I2:I)</code></td></tr>
+<tr><td>Reviews in the last 90 days</td><td><code>=COUNTIF(Client!K2:K,"&gt;="&amp;(TODAY()-90))</code></td></tr>
+<tr><td>Owner reply rate</td><td><code>=COUNTA(Client!Q2:Q)/COUNT(Client!I2:I)</code></td></tr>
+<tr><td>Unanswered 1 and 2 star reviews</td><td><code>=COUNTIFS(Client!I2:I,"&lt;=2",Client!Q2:Q,"")</code></td></tr>
+</table>
+<p>Put the client and the competitors side by side. The gaps are the story of the audit: "you get half as many reviews a month as the place across the street" or "you answer 10% of complaints, they answer 80%".</p>
+
+<h2>3. Find the complaints that repeat</h2>
+<p>Filter each tab to 1 and 2 star reviews and read 20 or so. Then count the themes with a formula such as <code>=COUNTIF(Client!M2:M,"*wait*")</code> on the text column. Typical themes: wait, price, rude, dirty, booking, parking. Three repeated complaints with real quotes are worth more to a client than any chart.</p>
+
+<h2>4. Show the trend</h2>
+<p>Make a pivot table with the month of the estimated date as rows and the average rating as values. A line chart of the last 12 months shows at a glance whether things are getting better or worse, and whether a change the client made (new staff, new menu) moved the needle.</p>
+
+<h2>5. End with quick wins</h2>
+<ul>
+<li><strong>Reply to every unanswered negative review</strong> from the last 6 months. Future customers read the replies.</li>
+<li><strong>Fix the top repeated complaint</strong>, then mention the fix in replies.</li>
+<li><strong>Ask happy customers for reviews</strong> at the moment they're happiest (receipt, follow-up email), so the monthly review count catches up with competitors.</li>
+</ul>
+
+<h2>Do it faster with Pro</h2>
+<p>The free version exports 50 reviews per place, enough for a small business. Busy listings have hundreds. <a href="../../maps-reviews-exporter/#pricing">Pro</a> ($24.99 once, no subscription) exports every review and builds most of this audit for you: star and keyword filters (for example only 1 and 2 star reviews that mention "wait"), average rating by month, owner reply rate and the words used most in bad reviews.</p>
