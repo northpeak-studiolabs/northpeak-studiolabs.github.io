@@ -1,0 +1,37 @@
+<h1>How to check a business's Google reviews before you buy it</h1>
+<p class="lead">A seller's numbers tell you what the business earned. Its Google reviews tell you what customers think of it right now, and whether that's getting better or worse. Here's a due-diligence check you can run in under an hour, before you sign anything.</p>
+
+<h2>Why the star rating isn't enough</h2>
+<p>A 4.5 average can hide a business in decline: years of glowing reviews followed by six months of complaints after a key employee left. It can also hide a burst of suspicious 5 star reviews posted just before the sale. You only see these patterns when every review is in a spreadsheet with its date.</p>
+
+<h2>1. Export every review</h2>
+<ol>
+<li><a href="https://chromewebstore.google.com/detail/maps-reviews-exporter-rev/diboglcabfkcinmhjnmlmeplilighncl">Add Maps Reviews Exporter to Chrome</a>. It's free and needs no account.</li>
+<li>Open the business on Google Maps, click the extension, set the sort to <strong>Newest</strong> and click <strong>Collect reviews</strong>.</li>
+<li>Click <strong>Export CSV</strong> and open it in Google Sheets or Excel. In the file, <em>rating</em> is column I, <em>date_estimated</em> is K, <em>text</em> is M and <em>owner_response</em> is Q.</li>
+</ol>
+<p>Do the same for two or three direct competitors nearby, so you have something to compare against.</p>
+
+<h2>2. The five checks</h2>
+<h3>Is the rating trending down?</h3>
+<p>Compare the last 6 months with everything before:</p>
+<p><code>=AVERAGEIF(K2:K,"&gt;="&amp;(TODAY()-182),I2:I)</code> versus <code>=AVERAGEIF(K2:K,"&lt;"&amp;(TODAY()-182),I2:I)</code></p>
+<p>A drop of 0.3 stars or more is worth asking the seller about.</p>
+<h3>Are reviews slowing down?</h3>
+<p>Count reviews per month with a pivot table (month of <em>date_estimated</em> as rows, count of <em>rating</em> as values). Fewer reviews each month often means fewer customers.</p>
+<h3>What do recent complaints say?</h3>
+<p>Filter to 1 and 2 star reviews from the last 12 months and read them all. Note anything that would come with you: the location, parking, the building, a key staff member, a supplier.</p>
+<h3>Does the owner reply?</h3>
+<p><code>=COUNTA(Q2:Q)/COUNT(I2:I)</code> gives the reply rate. A low rate isn't a deal-breaker, but it's an easy win for a new owner.</p>
+<h3>Any suspicious bursts?</h3>
+<p>Look for a cluster of 5 star reviews in a short window, especially from reviewers with only one or two reviews (column F, <em>reviewer_review_count</em>). Google removes fake reviews over time, so a business that relies on them may see its rating fall after you buy it.</p>
+
+<h2>3. Turn it into questions for the seller</h2>
+<ul>
+<li>"The rating fell from 4.6 to 4.1 this year. What changed?"</li>
+<li>"Several reviews mention long waits since spring. Is that a staffing issue?"</li>
+<li>"There were 30 five star reviews in two weeks in March. Was there a promotion?"</li>
+</ul>
+
+<h2>Free vs Pro</h2>
+<p>Free exports 50 reviews per place, which covers the most recent ones. To see the full history, <a href="../../maps-reviews-exporter/#pricing">Pro</a> ($24.99 once, no subscription) exports every review and adds star and keyword filters plus a summary with the average rating by month, which is the trend check above done for you.</p>
