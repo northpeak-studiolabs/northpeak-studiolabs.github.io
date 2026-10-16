@@ -1,0 +1,34 @@
+{
+  "name": "Comment Miner",
+  "tagline": "Export the comments and replies of any YouTube video to CSV or JSON in one click.",
+  "price": "$19.99",
+  "pro_name": "Comment Miner Pro",
+  "checkout_url": "",
+  "store_links": {},
+  "how": [
+    "Open any YouTube video: a normal video, a Short or a live replay.",
+    "Click the extension, pick Top comments or Newest first, and press Collect comments. Thousands of comments load in seconds, with no scrolling.",
+    "Export CSV or JSON, or copy straight into a spreadsheet."
+  ],
+  "fields": "Author name and channel link, full text, likes, reply count, date (plus an estimated calendar date), whether it is a reply and to which comment, pinned, edited and hearted by the creator, and a direct link to each comment. Every row also carries the video title and channel.",
+  "free": [
+    "Up to 100 comments per export",
+    "CSV export and copy to clipboard"
+  ],
+  "pro": [
+    "Unlimited comments, with every reply",
+    "JSON export",
+    "Filter by keyword and minimum likes, or show only questions",
+    "Insights: most liked comments, questions asked, most used words, most active commenters"
+  ],
+  "who": "Creators looking for video ideas and questions to answer, marketers and agencies studying audiences and competitors, sellers reading product feedback, researchers and teachers analysing discussions, and anyone picking a comment giveaway winner.",
+  "note": "Comment Miner is an independent tool and is not affiliated with or endorsed by YouTube or Google.",
+  "faq": [
+    ["Does it work on any video?", "Any public video with comments turned on, including Shorts and live replays. It works on other people's videos as well as your own."],
+    ["Do I have to scroll through the comments?", "No. It reads the video's comment feed directly, page by page, so thousands of comments take seconds."],
+    ["Can it export replies too?", "Yes, with Pro. Each reply carries the ID of the comment it answers, so threads stay together in your spreadsheet."],
+    ["Where does my data go?", "Nowhere. The extension runs in your own browser and saves the file on your computer. Nothing passes through our servers, and it never uses your YouTube sign-in."],
+    ["Is it a subscription?", "No. You pay once and Pro is yours, including future updates."],
+    ["Can I use it on more than one computer?", "Yes. One key works on up to 3 browsers."]
+  ]
+}
