@@ -1,0 +1,29 @@
+<h1>How to find every Google review you haven't replied to</h1>
+<p class="lead">Replying to reviews is one of the few things that visibly improves how a business looks on Google, and future customers do read the replies. The hard part is finding the ones you missed, especially old ones buried under hundreds of newer reviews. Here's a quick way to list them all, plus short replies you can adapt.</p>
+
+<h2>1. Get all your reviews into a spreadsheet</h2>
+<ol>
+<li><a href="https://chromewebstore.google.com/detail/maps-reviews-exporter-rev/diboglcabfkcinmhjnmlmeplilighncl">Add Maps Reviews Exporter to Chrome</a>. It's free and needs no account or login.</li>
+<li>Open your business on Google Maps, click the extension, set the sort to <strong>Lowest rating</strong> and click <strong>Collect reviews</strong>. Sorting by lowest first means the free 50 cover the reviews that matter most.</li>
+<li>Click <strong>Export CSV</strong> and open the file in Google Sheets or Excel.</li>
+</ol>
+
+<h2>2. Filter to the ones with no reply</h2>
+<p>Turn on a filter (Data → Create a filter in Google Sheets), then on the <em>owner_response</em> column (column Q) keep only <strong>blanks</strong>. Sort by <em>rating</em> (column I), lowest first. That's your to-do list.</p>
+<p>To count them: <code>=COUNTIFS(I2:I,"&lt;=3",Q2:Q,"")</code> gives the number of unanswered 1 to 3 star reviews.</p>
+
+<h2>3. Reply, starting with the worst</h2>
+<p>Keep replies short, specific and calm. Never argue, and never share a customer's private details. Some starting points:</p>
+<h3>1 or 2 stars</h3>
+<blockquote>Hi [name], thanks for telling us, and I'm sorry the [wait / order / visit] wasn't what it should have been. That's not the standard we aim for. If you're willing, please contact us at [email or phone] so we can make it right.</blockquote>
+<h3>3 stars</h3>
+<blockquote>Thanks for the honest review, [name]. Glad you liked [the thing they liked]. We hear you on [the complaint] and we're working on it. Hope to see you again.</blockquote>
+<h3>4 or 5 stars</h3>
+<blockquote>Thank you, [name]! Really glad you enjoyed [specific thing they mentioned]. See you next time.</blockquote>
+<p>Mentioning the specific thing they wrote about matters more than the wording. It shows a real person read it.</p>
+
+<h2>4. Keep it from piling up again</h2>
+<p>Run the export once a month with the sort set to <strong>Newest</strong>, and filter for blanks again. It takes a couple of minutes and you'll never fall behind.</p>
+
+<h2>Free vs Pro</h2>
+<p>Free exports 50 reviews per place, which is often enough when you sort by lowest rating. If you have hundreds of reviews, <a href="../../maps-reviews-exporter/#pricing">Pro</a> ($24.99 once, no subscription) exports every one and adds star and keyword filters plus an owner reply rate in the summary, so you can see your progress.</p>
