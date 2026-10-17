@@ -1,0 +1,31 @@
+<h1>How to compare Google reviews across multiple locations</h1>
+<p class="lead">If you run more than one location, Google shows each one's reviews separately, so it's hard to tell which branch is slipping. Putting every location's reviews into one spreadsheet answers questions like "which store gets the most complaints about wait times?" in a few minutes.</p>
+
+<h2>1. Export each location</h2>
+<ol>
+<li><a href="https://chromewebstore.google.com/detail/maps-reviews-exporter-rev/diboglcabfkcinmhjnmlmeplilighncl">Add Maps Reviews Exporter to Chrome</a>. It's free and needs no account.</li>
+<li>Open the first location on Google Maps, click the extension, set the sort to <strong>Newest</strong> and click <strong>Collect reviews</strong>, then <strong>Export CSV</strong>.</li>
+<li>Open the next location and repeat. Collecting a new place starts a fresh list, so nothing from the previous location gets mixed in.</li>
+</ol>
+<p>Every row of the export includes the place name and address (columns A and B), so you can combine the files and still tell the locations apart.</p>
+
+<h2>2. Combine them into one sheet</h2>
+<p>In Google Sheets, import the first CSV, then for each other file use File → Import → <strong>Append to current sheet</strong>. In Excel, paste each file's rows under the last one, leaving out the repeated header row. You now have one table with every review from every location.</p>
+
+<h2>3. Build the comparison with one pivot table</h2>
+<p>Insert a pivot table with <em>place_address</em> (column B) as rows, then add these values:</p>
+<ul>
+<li><strong>Average of rating</strong> (column I): the headline score per location.</li>
+<li><strong>Count of rating</strong>: review volume, a rough proxy for how busy each location is.</li>
+<li><strong>Count of owner_response</strong> (column Q): divide it by the review count to get each location's reply rate.</li>
+</ul>
+<p>Add a filter on <em>date_estimated</em> (column K) for the last 90 days to see current performance instead of all-time history.</p>
+
+<h2>4. Find which location has which problem</h2>
+<p>Add a helper column that flags a theme, for example <code>=IF(ISNUMBER(SEARCH("wait",M2)),1,0)</code> for reviews mentioning a wait (column M is the review text). Add that column to the pivot as a sum, and you'll see which branch the complaint actually comes from. Repeat for themes like "rude", "dirty", "price" or "parking".</p>
+
+<h2>5. Share it with managers</h2>
+<p>A one-page table of rating, volume, reply rate and top complaint per location makes a simple monthly scorecard. Re-run the exports each month with the sort set to Newest and compare.</p>
+
+<h2>Free vs Pro</h2>
+<p>Free exports 50 reviews per location, enough for a quick recent snapshot. <a href="../../maps-reviews-exporter/#pricing">Pro</a> ($24.99 once, no subscription, use it on as many locations as you like) exports every review, adds star and keyword filters, and builds a per-location summary with average rating by month, reply rate and the words used most in bad reviews.</p>
