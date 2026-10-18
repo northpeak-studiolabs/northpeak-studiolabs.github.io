@@ -9,12 +9,12 @@
 </ol>
 
 <h2>2. Use the star rating as your first sentiment score</h2>
-<p>The simplest, most reliable signal is already there: the stars. Add a column called <em>sentiment</em> with:</p>
+<p>The simplest, most reliable signal is already there: the stars. In the first empty column (AD, right after the last export column) add a header <em>sentiment</em> and this formula:</p>
 <p><code>=IF(I2&gt;=4,"positive",IF(I2=3,"mixed","negative"))</code></p>
 <p>Fill it down. A quick pivot table of this column by month (from column K) shows whether the share of negative reviews is going up or down.</p>
 
 <h2>3. Tag the themes people mention</h2>
-<p>Stars tell you <em>how</em> people feel; the text tells you <em>why</em>. Make a short list of themes that fit the business, then add one column per theme. For example, for a restaurant:</p>
+<p>Stars tell you <em>how</em> people feel; the text tells you <em>why</em>. Make a short list of themes that fit the business, then add one column per theme after it (AE, AF and so on). For example, for a restaurant:</p>
 <table>
 <tr><th>Theme</th><th>Formula (row 2)</th></tr>
 <tr><td>Service</td><td><code>=REGEXMATCH(LOWER(M2),"service|staff|waiter|waitress|rude|friendly")</code></td></tr>
@@ -27,7 +27,7 @@
 
 <h2>4. Cross the two</h2>
 <p>For each theme, count how often it shows up in positive vs negative reviews:</p>
-<p><code>=COUNTIFS(N2:N,"negative",O2:O,TRUE)</code> (assuming <em>sentiment</em> is column N and the theme is column O)</p>
+<p><code>=COUNTIFS(AD2:AD,"negative",AE2:AE,TRUE)</code> (with <em>sentiment</em> in column AD and the first theme in AE)</p>
 <p>The result is a small table like "Service: mentioned in 40 positive and 25 negative reviews; Wait: 3 positive, 31 negative". The themes that show up mostly in negative reviews are the ones to fix first.</p>
 
 <h2>5. Chart it</h2>
