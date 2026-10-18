@@ -1,0 +1,37 @@
+<h1>Google reviews sentiment analysis in a spreadsheet</h1>
+<p class="lead">"Sentiment analysis" sounds like it needs a data scientist, but for one business's reviews you mostly want to know two things: what people praise and what they complain about, and whether that's changing. A spreadsheet and a few formulas get you most of the way.</p>
+
+<h2>1. Export the reviews</h2>
+<ol>
+<li><a href="https://chromewebstore.google.com/detail/maps-reviews-exporter-rev/diboglcabfkcinmhjnmlmeplilighncl">Add Maps Reviews Exporter to Chrome</a>. It's free and needs no account.</li>
+<li>Open the business on Google Maps, click the extension and click <strong>Collect reviews</strong>.</li>
+<li>Click <strong>Export CSV</strong> and open it in Google Sheets or Excel. In the file, <em>rating</em> is column I, <em>date_estimated</em> is K and <em>text</em> is M.</li>
+</ol>
+
+<h2>2. Use the star rating as your first sentiment score</h2>
+<p>The simplest, most reliable signal is already there: the stars. Add a column called <em>sentiment</em> with:</p>
+<p><code>=IF(I2&gt;=4,"positive",IF(I2=3,"mixed","negative"))</code></p>
+<p>Fill it down. A quick pivot table of this column by month (from column K) shows whether the share of negative reviews is going up or down.</p>
+
+<h2>3. Tag the themes people mention</h2>
+<p>Stars tell you <em>how</em> people feel; the text tells you <em>why</em>. Make a short list of themes that fit the business, then add one column per theme. For example, for a restaurant:</p>
+<table>
+<tr><th>Theme</th><th>Formula (row 2)</th></tr>
+<tr><td>Service</td><td><code>=REGEXMATCH(LOWER(M2),"service|staff|waiter|waitress|rude|friendly")</code></td></tr>
+<tr><td>Wait</td><td><code>=REGEXMATCH(LOWER(M2),"wait|slow|took forever|minutes")</code></td></tr>
+<tr><td>Price</td><td><code>=REGEXMATCH(LOWER(M2),"price|expensive|overpriced|cheap|value")</code></td></tr>
+<tr><td>Food</td><td><code>=REGEXMATCH(LOWER(M2),"food|taste|delicious|cold|bland")</code></td></tr>
+<tr><td>Cleanliness</td><td><code>=REGEXMATCH(LOWER(M2),"clean|dirty|bathroom|sticky")</code></td></tr>
+</table>
+<p><code>REGEXMATCH</code> is Google Sheets. In Excel, use <code>=ISNUMBER(SEARCH("wait",M2))</code> for each word instead.</p>
+
+<h2>4. Cross the two</h2>
+<p>For each theme, count how often it shows up in positive vs negative reviews:</p>
+<p><code>=COUNTIFS(N2:N,"negative",O2:O,TRUE)</code> (assuming <em>sentiment</em> is column N and the theme is column O)</p>
+<p>The result is a small table like "Service: mentioned in 40 positive and 25 negative reviews; Wait: 3 positive, 31 negative". The themes that show up mostly in negative reviews are the ones to fix first.</p>
+
+<h2>5. Chart it</h2>
+<p>A stacked bar chart with themes on one axis and positive/negative counts on the other is easy to read and easy to drop into a report.</p>
+
+<h2>Free vs Pro</h2>
+<p>Free exports 50 reviews per place. <a href="../../maps-reviews-exporter/#pricing">Pro</a> ($24.99 once, no subscription) exports every review, lets you filter by star rating and keyword before exporting, and adds a summary with the most mentioned words overall and the words used in 1 and 2 star reviews, which is a quick shortcut to step 3.</p>
