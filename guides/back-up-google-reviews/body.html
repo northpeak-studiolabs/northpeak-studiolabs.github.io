@@ -1,0 +1,27 @@
+<h1>How to back up your Google reviews before they disappear</h1>
+<p class="lead">Business owners are often surprised to find their review count has dropped overnight. Google's spam filters remove reviews they consider suspicious, and real reviews sometimes go with them. Profiles can also be suspended or merged. Google gives owners no way to download their reviews, so if you want a record, you have to keep one yourself.</p>
+
+<h2>Why keep a copy</h2>
+<ul>
+<li><strong>Proof for an appeal.</strong> If good reviews vanish, a dated copy with reviewer names and text makes it much easier to explain what was lost when you contact Google support.</li>
+<li><strong>Testimonials.</strong> Customers' own words are great for your website and ads. Ask the reviewer before reusing a review with their name on it.</li>
+<li><strong>History.</strong> If you change your listing, move location or rebrand, you keep the record of what customers said.</li>
+</ul>
+
+<h2>Back them up in a few minutes</h2>
+<ol>
+<li><a href="https://chromewebstore.google.com/detail/maps-reviews-exporter-rev/diboglcabfkcinmhjnmlmeplilighncl">Add Maps Reviews Exporter to Chrome</a>. It's free and needs no account or Google login.</li>
+<li>Open your business on Google Maps, click the extension, set the sort to <strong>Newest</strong> and click <strong>Collect reviews</strong>.</li>
+<li>Click <strong>Export CSV</strong>. Each row includes the reviewer's name and profile link, the star rating, the date, the full text, your reply and a <em>collected_at</em> timestamp showing when you saved it.</li>
+<li>Save the file somewhere safe, such as Google Drive or Dropbox, with the date in the file name (the extension names it that way by default).</li>
+</ol>
+
+<h2>Make it a habit</h2>
+<p>Once a month is plenty for most businesses. Each new export is a snapshot, so you can compare two months side by side: a review that's in last month's file but missing from this month's was removed or deleted by the reviewer.</p>
+<p>A quick way to spot them in Google Sheets: put both exports in one file on separate tabs, then in the older tab add <code>=IF(COUNTIF(New!C:C,C2)=0,"missing","")</code>. Column C is <em>review_id</em>, which stays the same for each review.</p>
+
+<h2>What it can't do</h2>
+<p>The extension saves the reviews you can see on Google Maps. It can't bring back a review that's already gone, which is why it pays to back up before you need it.</p>
+
+<h2>Free vs Pro</h2>
+<p>Free saves the 50 newest reviews per export, which covers a monthly backup for most small businesses. <a href="../../maps-reviews-exporter/#pricing">Pro</a> ($24.99 once, no subscription) saves every review in one go, adds JSON export, and builds a summary with your average rating by month and your reply rate.</p>
