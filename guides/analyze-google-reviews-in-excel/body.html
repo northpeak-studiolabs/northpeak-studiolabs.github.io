@@ -1,0 +1,36 @@
+<h1>How to analyze Google reviews in Excel</h1>
+<p class="lead">Once a business's Google reviews are in Excel, a couple of pivot tables answer most of the questions people ask: how ratings are split, whether reviews are speeding up or slowing down, and whether the average is improving. Here's the whole thing, start to finish.</p>
+
+<h2>1. Get the reviews into Excel</h2>
+<ol>
+<li><a href="https://chromewebstore.google.com/detail/maps-reviews-exporter-rev/diboglcabfkcinmhjnmlmeplilighncl">Add Maps Reviews Exporter to Chrome</a>. It's free and needs no account.</li>
+<li>Open the business on Google Maps, click the extension, click <strong>Collect reviews</strong>, then <strong>Export CSV</strong>.</li>
+<li>Double-click the CSV to open it in Excel. Non-English text and emoji come through correctly, because the file is saved as UTF-8 with a byte order mark, which Excel recognizes.</li>
+</ol>
+
+<h2>2. Turn it into a table</h2>
+<p>Click any cell, press <strong>Ctrl+T</strong> (Cmd+T on a Mac) and confirm that the table has headers. Tables make filtering, sorting and pivot tables much easier, and they grow automatically if you paste in more rows later.</p>
+<p>Useful columns: <em>rating</em> (I), <em>date_estimated</em> (K), <em>text</em> (M) and <em>owner_response</em> (Q).</p>
+
+<h2>3. Add two helper columns</h2>
+<p>At the end of the table, add:</p>
+<ul>
+<li><strong>month</strong>: <code>=TEXT([@date_estimated],"yyyy-mm")</code></li>
+<li><strong>replied</strong>: <code>=IF([@owner_response]="","no","yes")</code></li>
+</ul>
+
+<h2>4. Pivot table: star rating split</h2>
+<p>Insert → PivotTable → New worksheet. Drag <em>rating</em> to Rows and <em>rating</em> again to Values, then set Values to <strong>Count</strong>. Insert a bar chart from it. A healthy business usually has most reviews at 5 stars and a small tail at 1 star; a big bump at 1 star is the first red flag.</p>
+
+<h2>5. Pivot table: trend by month</h2>
+<p>Make a second pivot table with <em>month</em> in Rows, then add <em>rating</em> to Values twice: once as <strong>Count</strong> (reviews per month) and once as <strong>Average</strong> (average rating per month). A line chart of the average over the last 12 months shows at a glance whether things are getting better or worse.</p>
+<p>The <em>date_estimated</em> column is calculated from Google's "3 months ago" style dates, so recent months are precise and older reviews are approximate. That's fine for spotting trends.</p>
+
+<h2>6. Reply rate</h2>
+<p>A third pivot with <em>replied</em> in Rows and Count of <em>rating</em> in Values shows how many reviews got an owner reply. Add <em>rating</em> as a column field to see whether the owner answers bad reviews or only thanks the good ones.</p>
+
+<h2>7. Read the worst reviews</h2>
+<p>Back in the table, filter <em>rating</em> to 1 and 2 and sort by date, newest first. Reading the 20 most recent bad reviews usually tells you more than any chart.</p>
+
+<h2>Free vs Pro</h2>
+<p>Free exports 50 reviews per place, enough to try every step above. <a href="../../maps-reviews-exporter/#pricing">Pro</a> ($24.99 once, no subscription) exports every review, adds JSON export and star and keyword filters, and builds the monthly average and reply-rate summary for you inside the extension.</p>
