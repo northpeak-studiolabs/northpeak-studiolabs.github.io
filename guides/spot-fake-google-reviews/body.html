@@ -1,0 +1,42 @@
+<h1>How to spot fake Google reviews with a spreadsheet</h1>
+<p class="lead">One fake review is hard to prove. Fifty of them almost always leave a pattern: accounts that have only ever written one review, a pile of five-star reviews that all landed in the same week, and text so short it could be about any business. Scrolling through Google Maps hides those patterns. A spreadsheet makes them obvious.</p>
+<p>This works whether you're checking a competitor that suddenly jumped to 4.9 stars, a contractor you're about to hire, or your own listing after a wave of suspicious one-star reviews.</p>
+
+<h2>1. Export the reviews</h2>
+<ol>
+<li><a href="https://chromewebstore.google.com/detail/maps-reviews-exporter-rev/diboglcabfkcinmhjnmlmeplilighncl">Add Maps Reviews Exporter to Chrome</a>. It's free and needs no account.</li>
+<li>Open the business on Google Maps, click the extension, set the sort to <strong>Newest</strong> and click <strong>Collect reviews</strong>. Recent reviews are where review bursts show up.</li>
+<li>Click <strong>Export CSV</strong> and open it in Google Sheets or Excel.</li>
+</ol>
+<p>The columns used below: <em>reviewer_review_count</em> (F), <em>local_guide</em> (H), <em>rating</em> (I), <em>date_estimated</em> (K), <em>text</em> (M) and <em>photos</em> (T).</p>
+
+<h2>2. Signal one: accounts with a single review</h2>
+<p>Real customers often write only a few reviews, so one single-review account means nothing. A high share of them does. Count it with:</p>
+<p><code>=COUNTIF(F2:F,1)/COUNTA(I2:I)</code></p>
+<p>Now compare five-star reviews against the rest:</p>
+<p><code>=COUNTIFS(I2:I,5,F2:F,1)/COUNTIF(I2:I,5)</code></p>
+<p>If most of the five-star reviews come from one-review accounts while the critical reviews come from people with long review histories, that's the classic pattern of bought reviews.</p>
+
+<h2>3. Signal two: bursts on the same dates</h2>
+<p>Add a helper column in AD with the week each review was posted:</p>
+<p><code>=K2-WEEKDAY(K2,2)+1</code></p>
+<p>Then in AE count how many reviews share that week: <code>=COUNTIF(AD:AD,AD2)</code>. Sort by AE, largest first. A business that normally gets two reviews a month and then gets twenty five-star reviews in one week deserves a closer look.</p>
+<p>One caveat: Google shows older reviews as "3 months ago" or "a year ago", so <em>date_estimated</em> is exact for recent reviews and approximate for old ones. Look for bursts in the last few months, where the dates are reliable.</p>
+
+<h2>4. Signal three: thin text</h2>
+<p>Add <code>=LEN(M2)</code> in AF. Fake reviews tend to be very short ("Great service!!") or oddly generic, with no detail a real customer would mention: a name, a dish, a price, a problem that got fixed. Filter for five-star reviews under 40 characters and read them in a row. Repeated phrasing across different reviewers is a strong sign.</p>
+
+<h2>5. Put it together</h2>
+<p>No single signal proves anything. A review that hits all three at once (one-review account, posted in a burst week, under 40 characters, no photos, not a Local Guide) is the one to flag. Count those with:</p>
+<p><code>=COUNTIFS(F2:F,1,AE2:AE,"&gt;=5",AF2:AF,"&lt;40",I2:I,5)</code></p>
+<p>Then compare the business's star rating with and without them. If the rating drops from 4.8 to 3.9 once the suspicious reviews are removed, you've learned what you needed to know before hiring or buying.</p>
+
+<h2>6. What to do about them</h2>
+<ul>
+<li><strong>On someone else's listing:</strong> open the review on Google Maps, click the three dots and choose <strong>Report review</strong>. Google removes reviews that break its rules on fake engagement or conflicts of interest.</li>
+<li><strong>On your own listing:</strong> report them from your Business Profile under <strong>Reviews</strong>, and keep the spreadsheet. If you need to escalate to Google support, a list of reviews with the same pattern is far more convincing than one complaint.</li>
+<li>Don't reply accusing a reviewer of being fake. If you reply at all, keep it calm and invite them to contact you, as in <a href="../find-unanswered-google-reviews/">our reply templates</a>.</li>
+</ul>
+
+<h2>Free vs Pro</h2>
+<p>The free version exports 50 reviews at a time, which is usually enough to spot a recent burst. For a full history, <a href="../../maps-reviews-exporter/">Pro</a> ($24.99 once) exports every review and adds star and keyword filters.</p>
