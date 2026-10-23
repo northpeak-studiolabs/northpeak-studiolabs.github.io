@@ -1,0 +1,38 @@
+<h1>How to search a business's Google reviews for a word</h1>
+<p class="lead">Want to know whether a restaurant's reviews mention "gluten free", whether a dentist's patients talk about "pain", or how often customers say "rude" about your own staff? Google Maps shows a handful of suggested topics above the reviews, but there's no box to search for your own word. In a spreadsheet it takes one formula.</p>
+
+<h2>1. Export the reviews</h2>
+<ol>
+<li><a href="https://chromewebstore.google.com/detail/maps-reviews-exporter-rev/diboglcabfkcinmhjnmlmeplilighncl">Add Maps Reviews Exporter to Chrome</a>. It's free and needs no account.</li>
+<li>Open the business on Google Maps, click the extension and choose a sort. <strong>Most relevant</strong> gives a good general sample; <strong>Newest</strong> tells you what people are saying now.</li>
+<li>Click <strong>Collect reviews</strong>, then <strong>Export CSV</strong>, and open the file in Google Sheets or Excel.</li>
+</ol>
+<p>The review text is in column M (<em>text</em>) and the star rating in column I (<em>rating</em>).</p>
+
+<h2>2. Find every review that mentions the word</h2>
+<p>The quickest way: turn on a filter (Data → Create a filter in Google Sheets, or Data → Filter in Excel), open the filter on column M and choose <strong>Text contains</strong>, then type your word. Only the matching reviews stay on screen.</p>
+<p>To flag matches in a column instead, put your word in cell AD1 and this in AD2, then fill it down:</p>
+<p><code>=IF(ISNUMBER(SEARCH($AD$1,M2)),"yes","")</code></p>
+<p>SEARCH ignores upper and lower case, so "Parking", "parking" and "PARKING" all match. Change AD1 and the whole column updates.</p>
+
+<h2>3. Count the mentions and their stars</h2>
+<ul>
+<li>How many reviews mention it: <code>=COUNTIF(M2:M,"*"&amp;AD1&amp;"*")</code></li>
+<li>Share of all reviews: <code>=COUNTIF(M2:M,"*"&amp;AD1&amp;"*")/COUNTA(I2:I)</code></li>
+<li>Average stars of those reviews: <code>=AVERAGEIF(M2:M,"*"&amp;AD1&amp;"*",I2:I)</code></li>
+<li>How many of them are 1 or 2 stars: <code>=COUNTIFS(M2:M,"*"&amp;AD1&amp;"*",I2:I,"&lt;=2")</code></li>
+</ul>
+<p>The average is the interesting number. If the business averages 4.5 stars but reviews mentioning "wait" average 2.8, waiting is the problem people keep running into.</p>
+
+<h2>4. Compare several words at once</h2>
+<p>Put a list of words in AF2:AF10 (for example price, staff, clean, wait, parking) and next to each one in AG put the average formula pointing at that row: <code>=AVERAGEIF(M$2:M,"*"&amp;AF2&amp;"*",I$2:I)</code>. Add the count in AH with <code>=COUNTIF(M$2:M,"*"&amp;AF2&amp;"*")</code>. Sort by AG, lowest first, and you have a ranked list of what people like and dislike, with how often each one comes up.</p>
+
+<h2>Tips</h2>
+<ul>
+<li>Search for the root of a word to catch variations: "rude" also matches "rudely", and "clean" matches "cleanliness" and "unclean". Read a few matches to make sure the word means what you think.</li>
+<li>Reviews in other languages won't match an English word. The <em>language</em> column (N) shows which language each review is in.</li>
+<li>For a deeper look at the bad reviews, see <a href="../google-reviews-sentiment-analysis-spreadsheet/">sentiment analysis in a spreadsheet</a>.</li>
+</ul>
+
+<h2>Free vs Pro</h2>
+<p>The free version exports 50 reviews at a time, enough to check a word on a small business. <a href="../../maps-reviews-exporter/">Pro</a> ($24.99 once) exports every review and has a built-in keyword filter, so the export contains only the reviews that mention your word.</p>
