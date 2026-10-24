@@ -8,7 +8,7 @@
 <ol>
 <li><a href="https://chromewebstore.google.com/detail/maps-reviews-exporter-rev/diboglcabfkcinmhjnmlmeplilighncl">Add Maps Reviews Exporter to Chrome</a>. It's free and needs no account.</li>
 <li>Open the business on Google Maps, click the extension, set the sort to <strong>Newest</strong> and click <strong>Collect reviews</strong>.</li>
-<li>Click <strong>Export CSV</strong>. In Google Sheets, open the Data tab, then File → Import → Upload, and choose <strong>Replace current sheet</strong>.</li>
+<li>Click <strong>Export CSV</strong>. In Google Sheets, open the Data tab, then File → Import → Upload, choose <strong>Replace current sheet</strong>, and untick <strong>Convert text to numbers, dates, and formulas</strong> so the dates stay in the same form the formulas below expect.</li>
 </ol>
 <p>The columns used here are <em>rating</em> (I), <em>date_estimated</em> (K) and <em>owner_response</em> (Q).</p>
 
@@ -16,11 +16,11 @@
 <p>On the Dashboard tab, put labels in column A and these formulas in column B:</p>
 <ul>
 <li>Average rating: <code>=ROUND(AVERAGE(Data!I2:I),2)</code></li>
-<li>Reviews in the last 30 days: <code>=COUNTIF(Data!K2:K,"&gt;="&amp;TEXT(TODAY()-30,"yyyy-mm-dd"))</code></li>
+<li>Reviews in the last 30 days: <code>=SUMPRODUCT(Data!K2:K&gt;=TEXT(TODAY()-30,"yyyy-mm-dd"))</code></li>
 <li>Reply rate: <code>=COUNTIF(Data!Q2:Q,"?*")/COUNTA(Data!I2:I)</code>, formatted as a percent</li>
 <li>Unanswered 1 to 2 star reviews: <code>=COUNTIFS(Data!I2:I,"&lt;=2",Data!Q2:Q,"")</code></li>
 </ul>
-<p>Dates in the export are text in yyyy-mm-dd form, which is why the 30-day formula turns today's date into the same format. Text dates in that form compare correctly.</p>
+<p>Dates in the export are text in yyyy-mm-dd form, which is why the 30-day formula turns today's date into the same format. Text dates in that form sort and compare correctly.</p>
 
 <h2>4. The monthly trend</h2>
 <p>In D1 put this, and it builds the whole table for you:</p>
@@ -31,7 +31,7 @@
 <p>In H2 to H6 type 5, 4, 3, 2, 1, and in I2 put <code>=COUNTIF(Data!I$2:I,H2)</code> and fill down. A bar chart of that range shows whether the average is being held up by a few fans or dragged down by a cluster of one-star reviews.</p>
 
 <h2>6. Refresh it monthly</h2>
-<p>Once a month, export again and import into the Data tab with <strong>Replace current sheet</strong>. Every number and chart on the Dashboard updates by itself. To track several locations, make one Data tab per location and copy the Dashboard tab, pointing it at the matching Data tab. There's more on that in <a href="../compare-google-reviews-multiple-locations/">comparing reviews across locations</a>.</p>
+<p>Once a month, export again and import into the Data tab with <strong>Replace current sheet</strong> (with the same box unticked). Every number and chart on the Dashboard updates by itself. To track several locations, make one Data tab per location and copy the Dashboard tab, pointing it at the matching Data tab. There's more on that in <a href="../compare-google-reviews-multiple-locations/">comparing reviews across locations</a>.</p>
 
 <h2>Free vs Pro</h2>
 <p>The free version exports the newest 50 reviews, which is enough for a monthly refresh at most small businesses. For a full history, and for busy listings, <a href="../../maps-reviews-exporter/#pricing">Pro</a> ($24.99 once, no subscription) exports every review and builds a rating-by-month and reply-rate summary inside the extension too.</p>
