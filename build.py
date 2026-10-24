@@ -71,7 +71,7 @@ def product(slug: str, src: Path, related: list[dict] = ()) -> dict:
     shots = ''.join(f'<img src="{s.name}" alt="{html.escape(p["name"])} screenshot {i + 1}" loading="lazy">'
                     for i, s in enumerate(sorted(src.glob('screenshot-*.png'))))
     if p.get('checkout_url'):
-        buy = f'<a class="btn" href="{html.escape(p["checkout_url"])}">Buy {html.escape(p["pro_name"])}, {p["price"]} once</a>'
+        buy = f'<a class="btn" href="{html.escape(p["checkout_url"])}">Buy {html.escape(p["pro_name"])}, {p["price"]} once</a><br><small>Secure checkout by Gumroad. Card or PayPal. Your key arrives on the next screen.</small>'
     else:
         buy = '<span class="btn off">Pro checkout opens soon</span>'
     links = p.get('store_links', {})
