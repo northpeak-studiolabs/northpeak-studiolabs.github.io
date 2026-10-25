@@ -1,0 +1,45 @@
+<h1>How to save Google reviews as a PDF</h1>
+<p class="lead">Screenshots of Google Maps make a poor record: long reviews are cut off at "More", dates say "3 months ago", and twenty screenshots don't search or print well. A spreadsheet export printed to PDF gives you every review in full, with a calendar date and the owner's reply, in a document you can attach to an email or a dispute.</p>
+
+<p>Common reasons people need this: evidence for a review-removal request or a legal dispute, a reputation report for a client, records for a business sale, or a backup before a listing changes.</p>
+
+<h2>1. Export the reviews</h2>
+<ol>
+<li><a href="https://chromewebstore.google.com/detail/maps-reviews-exporter-rev/diboglcabfkcinmhjnmlmeplilighncl">Add Maps Reviews Exporter to Chrome</a>. It's free and needs no account.</li>
+<li>Open the business on Google Maps, click the extension, choose a sort (<strong>Newest</strong> for a recent record, <strong>Lowest rating</strong> for a dispute) and click <strong>Collect reviews</strong>. It expands long reviews, so the full text is captured.</li>
+<li>Click <strong>Export CSV</strong> and open the file in Google Sheets or Excel.</li>
+</ol>
+
+<h2>2. Keep only the columns a reader needs</h2>
+<p>The export has a column for everything. For a readable PDF, keep these and hide or delete the rest:</p>
+<ul>
+<li><em>reviewer_name</em> (D)</li>
+<li><em>rating</em> (I)</li>
+<li><em>date_estimated</em> (K), the calendar date</li>
+<li><em>text</em> (M)</li>
+<li><em>owner_response</em> (Q)</li>
+</ul>
+<p>Also keep <em>date_text</em> (J), which is exactly what Google showed ("2 weeks ago"), if the PDF is evidence. The calendar date is worked out from it, so showing both is the honest record. Keep <em>collected_at</em> (AA), which records when you made the copy.</p>
+
+<h2>3. Make it readable</h2>
+<ol>
+<li>Select the text and owner_response columns, set them about 60 characters wide, and turn on <strong>Wrap text</strong> (Format → Wrapping → Wrap in Google Sheets, or Home → Wrap Text in Excel). Long reviews now show in full instead of running off the page.</li>
+<li>Bold the header row and freeze it (View → Freeze → 1 row), so it repeats on every printed page.</li>
+<li>Optional: put the business name, address and the date you collected the reviews in a title row above the table. The <em>place_name</em> and <em>place_address</em> columns (A and B) have them.</li>
+</ol>
+
+<h2>4. Print to PDF</h2>
+<ul>
+<li><strong>Google Sheets:</strong> File → Download → PDF. Choose <strong>Landscape</strong>, <strong>Fit to width</strong>, and tick <strong>Repeat frozen rows</strong> under headers and footers.</li>
+<li><strong>Excel:</strong> Page Layout → Orientation → Landscape, then Scale to Fit → Width: 1 page, and Print Titles → Rows to repeat at top: row 1. Then File → Save As → PDF.</li>
+</ul>
+
+<h2>5. For disputes and evidence</h2>
+<ul>
+<li>Keep the original CSV next to the PDF. It holds the <em>review_id</em> (C) for each review, which identifies it uniquely if you need to point Google or a lawyer at a specific one.</li>
+<li>Save a PDF on the day you notice a problem. Reviews can be edited or removed later, and the <em>edited</em> column (L) shows which ones had already been changed when you copied them.</li>
+<li>If you're asking Google to remove reviews, see <a href="../spot-fake-google-reviews/">how to spot fake reviews</a> for the patterns worth pointing out.</li>
+</ul>
+
+<h2>Free vs Pro</h2>
+<p>The free version exports 50 reviews at a time, enough for most disputes and small businesses. For a complete record of a busy listing, <a href="../../maps-reviews-exporter/#pricing">Pro</a> ($24.99 once, no subscription) exports every review and can filter by star rating or keyword first, so the PDF holds only the reviews you need.</p>
