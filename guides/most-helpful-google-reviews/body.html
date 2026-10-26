@@ -1,0 +1,32 @@
+<h1>How to find the most helpful Google reviews of a business</h1>
+<p class="lead">When a restaurant, contractor or clinic has hundreds of Google reviews, nobody reads them all. Google's "Most relevant" order helps a little, but you can't see why a review is ranked where it is. In a spreadsheet you can rank reviews by the things that make them trustworthy: other people found them helpful, the reviewer has written many reviews, and they added photos.</p>
+
+<h2>1. Export the reviews</h2>
+<ol>
+<li><a href="https://chromewebstore.google.com/detail/maps-reviews-exporter-rev/diboglcabfkcinmhjnmlmeplilighncl">Add Maps Reviews Exporter to Chrome</a>. It's free and needs no account.</li>
+<li>Open the place on Google Maps, click the extension, keep the sort on <strong>Most relevant</strong> and click <strong>Collect reviews</strong>.</li>
+<li>Click <strong>Export CSV</strong> and open it in Google Sheets or Excel.</li>
+</ol>
+<p>The columns used here: <em>reviewer_review_count</em> (F), <em>local_guide</em> (H), <em>rating</em> (I), <em>date_estimated</em> (K), <em>text</em> (M), <em>photos</em> (T) and <em>likes</em> (U).</p>
+
+<h2>2. Sort by likes</h2>
+<p>The quickest filter is the one other readers already applied. Sort column U (<em>likes</em>) from largest to smallest. Reviews near the top were marked helpful by other people, which usually means they're detailed and specific.</p>
+
+<h2>3. Give each review a usefulness score</h2>
+<p>Likes alone favour old reviews, so combine a few signals. In AD2 put this and fill it down:</p>
+<p><code>=U2*3 + MIN(F2,50)/10 + IF(H2="yes",2,0) + IF(T2&gt;0,2,0) + MIN(LEN(M2),600)/200</code></p>
+<p>It adds points for likes, for reviewers with a real history (capped so one prolific reviewer doesn't dominate), for Local Guides, for photos, and for longer text. Sort by AD, largest first. Adjust the weights if you care more about one signal than another; the point is to push thoughtful reviews to the top and one-line ratings to the bottom.</p>
+
+<h2>4. Read the best ones on each side</h2>
+<p>Filter to 4 and 5 stars and read the top ten by score, then filter to 1 and 2 stars and read the top ten there. Twenty well-chosen reviews tell you more than two hundred random ones: what the place does well, what goes wrong, and whether the complaints are about something that matters to you.</p>
+<p>Check the dates in column K too. A detailed complaint from three years ago about a manager who has since left matters less than three recent ones about the same problem.</p>
+
+<h2>5. Useful for</h2>
+<ul>
+<li><strong>Hiring a contractor, dentist or lawyer:</strong> the high-scoring negative reviews show how things go when a job goes wrong, and the owner replies (column Q) show how they handle it.</li>
+<li><strong>Researching a competitor:</strong> the most liked reviews are the ones their future customers read too. See <a href="../analyze-competitor-google-reviews/">analyzing competitors' reviews</a>.</li>
+<li><strong>Your own business:</strong> your most liked negative review is effectively your public reputation. Make sure it has a calm, helpful reply, as in <a href="../find-unanswered-google-reviews/">our reply templates</a>.</li>
+</ul>
+
+<h2>Free vs Pro</h2>
+<p>The free version exports 50 reviews at a time, which covers Google's most relevant reviews for a quick check. To score every review of a busy place, <a href="../../maps-reviews-exporter/#pricing">Pro</a> ($24.99 once, no subscription) exports all of them and can filter by star rating first.</p>
